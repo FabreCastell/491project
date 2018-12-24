@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">491</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="title_group">Choose a group</string>
+    <string name="title_hospital">Choose a hospital</string>
+
+    <string-array name="group">
+        <item>stemi</item>
+        <item>nsteacs</item>
+    </string-array>
+
+    <string-array name="hospital">
+        <item>โรงพยาบาลมหาราชนครเชียงใหม่</item>
+        <item>โรงพยาบาลนครพิงค์</item>
+        <item>โรงพยาบาลสารภี</item>
+        <item>โรงพยาบาลสันทราย</item>
+        <item>โรงพยาบาลสันกำแพง</item>
+        <item>โรงพยาบาลหางดง</item>
+        <item>โรงพยาบาลดอยสะเก็ด</item>
+        <item>โรงพยาบาลสันป่าตอง</item>
+        <item>โรงพยาบาลแม่ออน</item>
+        <item>โรงพยาบาลแม่วาง</item>
+        <item>โรงพยาบาลแม่แตง</item>
+        <item>โรงพยาบาลสะเมิง</item>
+        <item>โรงพยาบาลจอมทอง</item>
+        <item>โรงพยาบาลเชียงดาว</item>
+        <item>โรงพยาบาลฮอด</item>
+        <item>โรงพยาบาลพร้าว</item>
+        <item>โรงพยาบาลดอยเต่า</item>
+        <item>โรงพยาบาลไชยปราการ</item>
+        <item>โรงพยาบาลเวียงแหง</item>
+        <item>โรงพยาบาลฝาง</item>
+        <item>โรงพยาบาลเทพรัตนเวชชานุกูล เฉลิมพระเกียรติ ๖๐ พรรษา</item>
+        <item>โรงพยาบาลแม่อาย</item>
+        <item>โรงพยาบาลอมก๋อย</item>
+        <item>โรงพยาบาลวัดจันทร์ เฉลิมพระเกียรติ ๘๐ พรรษา</item>
+        <item>โรงพยาบาลราชเวช</item>
+        <item>โรงพยาบาลใกล้หมอ</item>
+        <item>โรงพยาบาลแมคคอร์มิค</item>
+        <item>โรงพยาบาลเซนทรัลเมมโมเรียล</item>
+        <item>โรงพยาบาลทุ่งหัวช้าง</item>
+        <item>โรงพยาบาลบ้านธิ</item>
+        <item>โรงพยาบาลบ้านโฮ่ง</item>
+        <item>โรงพยาบาลลำพูน</item>
+        <item>โรงพยาบาลลี้</item>
+        <item>โรงพยาบาลเวียงหนองล่อง</item>
+        <item>โรงพยาบาลป่าซาง</item>
+        <item>โรงพยาบาลศรีสังวาลย์</item>
+        <item>โรงพยาบาลขุนยวม</item>
+        <item>โรงพยาบาลปาย</item>
+        <item>โรงพยาบาลแม่สะเรียง</item>
+        <item>โรงพยาบาลแม่ลาน้อย</item>
+        <item>โรงพยาบาลสบเมย</item>
+        <item>โรงพยาบาลปางมะผ้า</item>
+    </string-array>
+
+</resources>
