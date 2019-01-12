@@ -31,7 +31,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+<<<<<<< HEAD
 
+=======
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+>>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,8 +57,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private String latitude;
     private String longitude;
+<<<<<<< HEAD
 
+=======
+>>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
 
+    //FireBase
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +72,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+<<<<<<< HEAD
 //        addLocation();
 //        getLocation();
+=======
+//        DatabaseReference mylng = database.getReference("user1").child("lng");
+//        mylng.setValue(longitude);
+//        new Thread(new Runnable() {
+//            public void run() {
+//                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                DatabaseReference mylat = database.getReference("user1").child("lat");
+//                mylat.setValue(latitude);
+//                DatabaseReference mylng = database.getReference("user1").child("lng");
+//                mylng.setValue(longitude);
+//            }
+//        }).start();
+//        InitFirebase();
+//        addLocation();
+    }
+
+    private void InitFirebase() {
+        DatabaseReference myRef = database.getReference();
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
+>>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
     }
 
     /**
@@ -103,9 +149,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double lat = (location.getLatitude());
         latitude = lat + "";
         longitude = lon + "";
+<<<<<<< HEAD
         Log.i("read location", latitude + longitude);
 
 
+=======
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mylat = database.getReference("user1").child("lat");
+        mylat.setValue(lat);
+        DatabaseReference mylng = database.getReference("user1").child("lng");
+        mylng.setValue(lon);
+        Log.i(latitude,longitude);
+>>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
     }
 
     @Override
@@ -152,7 +207,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 
+    private void getLocation(){
 
+<<<<<<< HEAD
+=======
+    }
+
+//
+//    private void addLocation() {
+//        Map<String, Object> gps = new HashMap<>();
+//        gps.put("la", latitude);
+//        gps.put("lo", longitude);
+//
+//
+//        // Add a new document with a generated ID
+//        db.collection("gps")
+//                .add(gps)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d("test", "DocumentSnapshot added with ID: " + documentReference.getId());
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w("test", "Error adding document", e);
+//                    }
+//                });
+//    }
+
+//    private void getLocation() {
+//        db.collection("users")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (DocumentSnapshot document : task.getResult()) {
+//                                Log.d("test", document.getId() + " => " + document.getData());
+//                            }
+//                        } else {
+//                            Log.w("test", "Error getting documents.", task.getException());
+//                        }
+//                    }
+//                });
+//    }
+>>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
 
 
 }
