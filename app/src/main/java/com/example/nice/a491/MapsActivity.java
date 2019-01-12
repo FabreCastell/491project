@@ -31,15 +31,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-<<<<<<< HEAD
-
-=======
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
->>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,10 +53,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private String latitude;
     private String longitude;
-<<<<<<< HEAD
-
-=======
->>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
 
     //FireBase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -72,10 +64,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-<<<<<<< HEAD
 //        addLocation();
 //        getLocation();
-=======
 //        DatabaseReference mylng = database.getReference("user1").child("lng");
 //        mylng.setValue(longitude);
 //        new Thread(new Runnable() {
@@ -106,7 +96,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // Failed to read value
             }
         });
->>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
     }
 
     /**
@@ -149,18 +138,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double lat = (location.getLatitude());
         latitude = lat + "";
         longitude = lon + "";
-<<<<<<< HEAD
-        Log.i("read location", latitude + longitude);
-
-
-=======
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mylat = database.getReference("user1").child("lat");
         mylat.setValue(lat);
         DatabaseReference mylng = database.getReference("user1").child("lng");
         mylng.setValue(lon);
         Log.i(latitude,longitude);
->>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
     }
 
     @Override
@@ -209,8 +192,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void getLocation(){
 
-<<<<<<< HEAD
-=======
     }
 
 //
@@ -253,7 +234,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    }
 //                });
 //    }
->>>>>>> cddc5c9819605bf2266a2a70746a37af608ac0ea
 
 
 }
