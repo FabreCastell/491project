@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 public class RecordActivity extends AppCompatActivity {
 
@@ -13,6 +14,11 @@ public class RecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_record);
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("data");
+//        TextView textView = findViewById(R.id.requestDataTextView);
+//        textView.setText(message);
 
     }
 

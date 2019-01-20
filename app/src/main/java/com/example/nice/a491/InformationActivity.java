@@ -54,18 +54,19 @@ public class InformationActivity extends AppCompatActivity {
     }
 
     private void initinstance() {
-        DatabaseReference myref = database.getReference("0001").child("patient");
+        DatabaseReference myref = database.getReference("0001");
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 //                Log.d("ggg","kuy" + dataSnapshot.getValue(String.class));
 
-                Long age = dataSnapshot.child("age").getValue(Long.class);
-                Long desid = dataSnapshot.child("desid").getValue(Long.class);
-                String disease = dataSnapshot.child("disease").getValue(String.class);
-                Long hospitalid = dataSnapshot.child("hospitalid").getValue(Long.class);
-                String sex = dataSnapshot.child("sex").getValue(String.class);
+                String age = dataSnapshot.child("patient/age").getValue(String.class);
+                String desid = dataSnapshot.child("status/destination").getValue(String.class);
+                String disease = dataSnapshot.child("patient/disease").getValue(String.class);
+                String hospitalid = dataSnapshot.child("patient/hospital").getValue(String.class);
+                String sex = dataSnapshot.child("patient/sex").getValue(String.class);
+                String status = dataSnapshot.child("status/status").getValue(String.class);
 
                 idtv = findViewById(R.id.textView7);
                 hospitalidtv = findViewById(R.id.textView8);
@@ -76,11 +77,11 @@ public class InformationActivity extends AppCompatActivity {
                 diseasetv = findViewById(R.id.textView13);
 
                 idtv.setText("0001");
-                hospitalidtv.setText(hospitalid.toString());
-                agetv.setText(age.toString());
+                hospitalidtv.setText(hospitalid);
+                agetv.setText(age);
                 sextv.setText(sex);
-                statustv.setText("n");
-                desidtv.setText(desid.toString());
+                statustv.setText(status);
+                desidtv.setText(desid);
                 diseasetv.setText(disease);
 
             }

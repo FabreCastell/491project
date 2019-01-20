@@ -150,6 +150,14 @@
           }
         },
         {
+          "client_id": "720098474654-5jc751c6l92jfgssvd45spc3n9806p7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nice.a491",
+            "certificate_hash": "f7736819b2287dab669669bdfbc2154b51375007"
+          }
+        },
+        {
           "client_id": "720098474654-sugu4957dms8mb50ova6euv93dcjb5fj.apps.googleusercontent.com",
           "client_type": 3
         }

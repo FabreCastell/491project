@@ -12,11 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="97dp"
+        android:layout_marginTop="114dp"
         android:layout_marginBottom="16dp"
         android:text="Age"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/text"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/text"
@@ -33,9 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-
             android:hint="age"
-            android:inputType="number"
+            android:inputType="text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,7 +79,6 @@
             android:id="@+id/spinner"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:layout_marginStart="-1dp"
             android:entries="@array/group"
             android:prompt="@string/title_group"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,25 +89,31 @@
 
 
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/radioStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner2"
-        app:layout_constraintStart_toStartOf="parent">
+
+
+        <RadioGroup
+            android:id="@+id/radioStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/spinner2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:text="F"
             android:textSize="20dp"
             android:textStyle="bold"
             android:background="@color/white"
+            android:onClick="onRadioStatusClicked"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -118,13 +124,14 @@
             android:layout_marginStart="32dp"
             android:text="P"
             android:textSize="20dp"
+            android:checked="false"
             android:textStyle="bold"
             android:background="@color/white"
+            android:onClick="onRadioStatusClicked"
             app:layout_constraintStart_toEndOf="@+id/radioButton"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-    </android.support.constraint.ConstraintLayout>
+    </RadioGroup>
 
 
     <Button
@@ -162,14 +169,27 @@
         app:layout_constraintBottom_toTopOf="@+id/radioStatus"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
+    <!--<android.support.constraint.ConstraintLayout-->
+        <!--android:id="@+id/radioSex"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="60dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/spinner1"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+
+        >
+
+    <RadioGroup
         android:id="@+id/radioSex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="60dp"
-
+        android:layout_marginBottom="50dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/spinner1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -178,8 +198,9 @@
             android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:background="@color/white"
+            android:checked="false"
+            android:onClick="onRadioSexClicked"
             android:text="Male"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -190,11 +211,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:background="@color/white"
+            android:checked="false"
+            android:onClick="onRadioSexClicked"
             android:text="Female"
             app:layout_constraintStart_toEndOf="@+id/radioButton3"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </RadioGroup>
+
+
+    <!--</android.support.constraint.ConstraintLayout>-->
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/spinner2"
@@ -207,9 +233,9 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Spinner
-
+            android:id="@+id/des"
             android:layout_width="300dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:entries="@array/hospital"
             android:prompt="@string/title_hospital"
             app:layout_constraintStart_toStartOf="parent"
