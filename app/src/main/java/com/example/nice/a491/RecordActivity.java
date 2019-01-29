@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 public class RecordActivity extends AppCompatActivity {
+    String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +17,7 @@ public class RecordActivity extends AppCompatActivity {
         setContentView(R.layout.menu_record);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra("data");
+        message = intent.getStringExtra("data");
 //        TextView textView = findViewById(R.id.requestDataTextView);
 //        textView.setText(message);
 
@@ -27,9 +28,14 @@ public class RecordActivity extends AppCompatActivity {
         if (v.getId() == R.id.back){
             nextPage(ListActivity.class);
         }else if (v.getId() == R.id.info){
-            nextPage(InformationActivity.class);
+            Intent next = new Intent(this,InformationActivity.class);
+            next.putExtra("data",message);
+//            next.putExtra("allData" ,allData);
+            startActivity(next);
         }else if (v.getId() == R.id.map) {
-            nextPage(MapsActivity.class);
+            nextPagemap(MapsActivity.class);
+        }else if (v.getId() == R.id.map2) {
+            nextPagemap2(MapsActivity.class);
         }else if (v.getId() == R.id.image) {
             nextPage(ImageActivity.class);
         }
@@ -40,7 +46,16 @@ public class RecordActivity extends AppCompatActivity {
         Intent next = new Intent(this,page);
         startActivity(next);
     }
-
+    private void nextPagemap(Class page){
+        Intent next = new Intent(this,page);
+        next.putExtra("type","1");
+        startActivity(next);
+    }
+    private void nextPagemap2(Class page){
+        Intent next = new Intent(this,page);
+        next.putExtra("type","2");
+        startActivity(next);
+    }
     // To hide Android soft keyboard
     private void hideKeyboardInput(View v){
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

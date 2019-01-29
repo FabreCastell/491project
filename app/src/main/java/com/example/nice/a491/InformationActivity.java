@@ -22,14 +22,17 @@ import com.google.firebase.database.ValueEventListener;
 public class InformationActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private TextView idtv, hospitalidtv, desidtv, diseasetv, sextv, statustv, agetv;
-
+    String data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_page);
-        initinstance();
-
+//        initinstance();
+        Intent intent = getIntent();
+        data = intent.getStringExtra("data");
+        idtv = findViewById(R.id.textView7);
+        idtv.setText(data);
     }
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
@@ -53,46 +56,46 @@ public class InformationActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
-    private void initinstance() {
-        DatabaseReference myref = database.getReference("0001");
-        myref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-//                Log.d("ggg","kuy" + dataSnapshot.getValue(String.class));
-
-                String age = dataSnapshot.child("patient/age").getValue(String.class);
-                String desid = dataSnapshot.child("status/destination").getValue(String.class);
-                String disease = dataSnapshot.child("patient/disease").getValue(String.class);
-                String hospitalid = dataSnapshot.child("patient/hospital").getValue(String.class);
-                String sex = dataSnapshot.child("patient/sex").getValue(String.class);
-                String status = dataSnapshot.child("status/status").getValue(String.class);
-
-                idtv = findViewById(R.id.textView7);
-                hospitalidtv = findViewById(R.id.textView8);
-                agetv = findViewById(R.id.textView9);
-                sextv = findViewById(R.id.textView10);
-                statustv = findViewById(R.id.textView11);
-                desidtv = findViewById(R.id.textView12);
-                diseasetv = findViewById(R.id.textView13);
-
-                idtv.setText("0001");
-                hospitalidtv.setText(hospitalid);
-                agetv.setText(age);
-                sextv.setText(sex);
-                statustv.setText(status);
-                desidtv.setText(desid);
-                diseasetv.setText(disease);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-               Log.d("ggg", "failread realtimedb");
-            }
-
-
-        });
-    }
+//    private void initinstance() {
+//        DatabaseReference myref = database.getReference("0001");
+//        myref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+////                Log.d("ggg","kuy" + dataSnapshot.getValue(String.class));
+//
+//                String age = dataSnapshot.child("patient/age").getValue(String.class);
+//                String desid = dataSnapshot.child("status/destination").getValue(String.class);
+//                String disease = dataSnapshot.child("patient/disease").getValue(String.class);
+//                String hospitalid = dataSnapshot.child("patient/hospital").getValue(String.class);
+//                String sex = dataSnapshot.child("patient/sex").getValue(String.class);
+//                String status = dataSnapshot.child("status/status").getValue(String.class);
+//
+//                idtv = findViewById(R.id.textView7);
+//                hospitalidtv = findViewById(R.id.textView8);
+//                agetv = findViewById(R.id.textView9);
+//                sextv = findViewById(R.id.textView10);
+//                statustv = findViewById(R.id.textView11);
+//                desidtv = findViewById(R.id.textView12);
+//                diseasetv = findViewById(R.id.textView13);
+//
+//                idtv.setText("0001");
+//                hospitalidtv.setText(hospitalid);
+//                agetv.setText(age);
+//                sextv.setText(sex);
+//                statustv.setText(status);
+//                desidtv.setText(desid);
+//                diseasetv.setText(disease);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//               Log.d("ggg", "failread realtimedb");
+//            }
+//
+//
+//        });
+//    }
 
 }

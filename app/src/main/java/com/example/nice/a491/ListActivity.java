@@ -8,11 +8,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 public class ListActivity extends AppCompatActivity {
+    String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_page);
+        Intent intent = getIntent();
+        message = intent.getStringExtra("data");
+
 
     }
 

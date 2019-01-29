@@ -23,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -53,7 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private String latitude;
     private String longitude;
-
+    private String TypeIntent;
     //FireBase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     @Override
@@ -64,6 +65,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        TypeIntent = getIntent().getStringExtra("type");
+
 //        addLocation();
 //        getLocation();
 //        DatabaseReference mylng = database.getReference("user1").child("lng");
@@ -112,11 +115,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 //        mMap.addMarker(new MarkerOptions().position(DefaultLocation).title("Marker in Sydney"));
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.795732, 98.952681), 15));
 
-        mMap.setOnMyLocationButtonClickListener(this);
-        mMap.setOnMyLocationClickListener(this);
-        enableMyLocation();
+        if(TypeIntent.equals("1")){
+            mMap.setOnMyLocationButtonClickListener(this);
+            mMap.setOnMyLocationClickListener(this);
+            enableMyLocation();
+        }
+        if(TypeIntent.equals("2")){
+            mMap.addMarker(new MarkerOptions().position(new LatLng(18.795732,98.952681)).title("mark 1")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
+
+            mMap.addMarker(new MarkerOptions().position(new LatLng(18.835732,98.952681)).title("mark 2")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
+
+            mMap.addMarker(new MarkerOptions().position(new LatLng(18.695732,98.852681)).title("mark 3")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
+
+            mMap.addMarker(new MarkerOptions().position(new LatLng(18.695732,98.952681)).title("mark 4")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
+
+            mMap.addMarker(new MarkerOptions().position(new LatLng(18.795732,98.752681)).title("mark 5")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
+        }
+
+
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.795732, 98.952681), 10));
+
     }
 
     private void enableMyLocation() {

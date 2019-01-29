@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity  {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("List");
     ListView listview;
     ArrayList<String> list=new ArrayList<>();
+    ArrayList<Map<String,Object>> allData=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity  {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 //                Log.d("zzzzzzzzz","gg " + dataSnapshot.getValue());
                 list.add(dataSnapshot.child("id").getValue(String.class) + " " + dataSnapshot.child("age").getValue(String.class) + " " + dataSnapshot.child("sex").getValue(String.class) + " " + dataSnapshot.child("disease").getValue(String.class));
+                allData.add((Map<String, Object>)dataSnapshot.getValue());
                 adapter.notifyDataSetChanged();
                 Log.d("zzzzzzzzz","gg " + list);
             }
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 list.remove(dataSnapshot.getValue(String.class));
-//                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
@@ -91,11 +93,12 @@ public class MainActivity extends AppCompatActivity  {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //item = parent.getItemAtPosition(position);
+                String data = parent.getItemAtPosition(position).toString();
 
                 Intent intent = new Intent(MainActivity.this, RecordActivity.class);
                 //based on item add info to intent
-                intent.putExtra("data" ,list);
+                intent.putExtra("data" ,data);
+//                intent.putExtra("allData" ,allData);
                 startActivity(intent);
             }
 
