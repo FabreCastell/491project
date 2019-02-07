@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
@@ -26,6 +27,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private TextView desidtv, diseasetv, agetv ,checkedtv;
     private String status, sex, hospital, disease ;
+    float x1,x2,y1,y2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.add_page);
 
 
-        Spinner hospital = findViewById(R.id.des);
-        Spinner disease = findViewById(R.id.spinner);
+        Spinner hospital = findViewById(R.id.desSpinner);
+        Spinner disease = findViewById(R.id.disSpinner);
 
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -56,8 +58,14 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
-        if (v.getId() == R.id.back){
+        if (v.getId() == R.id.logout){
+            nextPage(LoginActivity.class);
+        }else if (v.getId() == R.id.currentlist){
             nextPage(MainActivity.class);
+        }else if (v.getId() == R.id.alllist){
+            nextPage(ListActivity.class);
+        }else if (v.getId() == R.id.add){
+            nextPage(AddActivity.class);
         }else if (v.getId() == R.id.submit){
             addData();
             nextPage(MainActivity.class);
@@ -82,11 +90,11 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
         // Check which radio button was clicked
         switch(view.getId()) {
-            case R.id.radioButton3:
+            case R.id.bmale:
                 if (checked)
                     sex = "male";
                     break;
-            case R.id.radioButton4:
+            case R.id.bfemale:
                 if (checked)
                     sex = "female";
                     break;
@@ -99,11 +107,11 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
         // Check which radio button was clicked
         switch(view.getId()) {
-            case R.id.radioButton:
+            case R.id.bf:
                 if (checked)
                     status = "f";
                 break;
-            case R.id.radioButton2:
+            case R.id.bp:
                 if (checked)
                     status = "p";
                 break;
@@ -113,7 +121,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     private void addData(){
         DatabaseReference myRef = database.getReference("0001");
 
-        agetv = findViewById(R.id.editText2);
+        agetv = findViewById(R.id.ageEdit);
 //        desidtv = findViewById(R.id.spinner2);
 //        diseasetv = findViewById(R.id.spinner1);
 
@@ -135,10 +143,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch(parent.getId()) {
-            case R.id.des:
+            case R.id.desSpinner:
                 hospital = parent.getItemAtPosition(position).toString();
                 break;
-            case R.id.spinner:
+            case R.id.disSpinner:
                 disease = parent.getItemAtPosition(position).toString();
                 Log.d("gg ","zzzzzzzzzzzz" + disease);
                 break;
@@ -148,6 +156,25 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         Toast.makeText(this, "You selected nothing", Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onTouchEvent(MotionEvent touchEvent){
+        switch(touchEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+                if(x1 <= x2){
+                    Intent i = new Intent(this, ListActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                }
+                break;
+        }
+        return false;
     }
 
 }

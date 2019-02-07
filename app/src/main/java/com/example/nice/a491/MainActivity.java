@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity  {
     ListView listview;
     ArrayList<String> list=new ArrayList<>();
     ArrayList<Map<String,Object>> allData=new ArrayList<>();
+    float x1,x2,y1,y2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,20 +62,41 @@ public class MainActivity extends AppCompatActivity  {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+        listview.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        x1 = event.getX();
+                        y1 = event.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        x2 = event.getX();
+                        y2 = event.getY();
+                        if(x1 >= x2){
+                            Intent i = new Intent(MainActivity.this, ListActivity.class);
+                            startActivity(i);
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
 //
         showData();
+//        this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
         if (v.getId() == R.id.logout){
             nextPage(LoginActivity.class);
-        }else if (v.getId() == R.id.list){
+        }else if (v.getId() == R.id.alllist){
             nextPage(ListActivity.class);
         }else if (v.getId() == R.id.add){
             nextPage(AddActivity.class);
-        }else if (v.getId() == R.id.list1){
-            nextPage(RecordActivity.class);
         }
 
         hideKeyboardInput(v);
@@ -104,6 +128,13 @@ public class MainActivity extends AppCompatActivity  {
 
         });
     }
+
+//    private void signOut() {
+//        mAuth.signOut();
+//        updateUI(null);
+//    }
+
+
 
 
 

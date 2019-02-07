@@ -1,282 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="114dp"
-        android:layout_marginBottom="16dp"
-        android:text="Age"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginBottom="58dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/radioSex"
-        app:layout_constraintStart_toStartOf="parent">
+        <Button
+            android:id="@+id/currentlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="process"
+            android:text="current list" />
+
+        <Button
+            android:id="@+id/alllist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="all list"
+            android:onClick="process"/>
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="add" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="process"
+            android:text="logout" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/text"
+            />
+
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/ageEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="age"
             android:inputType="text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginBottom="16dp"
-        android:text="Sex"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/radioSex"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginBottom="16dp"
-        android:text="Disease group"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/spinner1"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginBottom="58dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/radioStatus"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:entries="@array/group"
-            android:prompt="@string/title_group"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </android.support.constraint.ConstraintLayout>
+           />
 
 
 
 
+        <TextView
+            android:id="@+id/sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sex"
+            android:textStyle="bold"
+            />
 
         <RadioGroup
-            android:id="@+id/radioStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/bmale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:checked="false"
+                android:onClick="onRadioSexClicked"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/bfemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:checked="false"
+                android:onClick="onRadioSexClicked"
+                android:text="Female"
+                />
+
+        </RadioGroup>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="50dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/spinner2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/di"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Disease group"
+                    android:textStyle="bold"
+                    />
 
 
-        <RadioButton
-            android:id="@+id/radioButton"
+                <Spinner
+                    android:id="@+id/disSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/group"
+                    android:prompt="@string/title_group"
+                   />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number"
+                    android:textStyle="bold" />
+
+
+                <EditText
+                    android:id="@+id/numberEdit"
+                    android:layout_width="63dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:ems="10"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+        <TextView
+            android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="F"
-            android:textSize="20dp"
+            android:text="Status"
             android:textStyle="bold"
-            android:background="@color/white"
-            android:onClick="onRadioStatusClicked"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            />
 
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="P"
-            android:textSize="20dp"
-            android:checked="false"
-            android:textStyle="bold"
-            android:background="@color/white"
-            android:onClick="onRadioStatusClicked"
-            app:layout_constraintStart_toEndOf="@+id/radioButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </RadioGroup>
+            android:orientation="horizontal">
 
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="100dp"
-        android:onClick="process"
-        android:text="submit"
-        android:background="@drawable/smallbutton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <RadioButton
+                android:id="@+id/bf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:checked="false"
+                android:onClick="onRadioStatusClicked"
+                android:text="F"
+                android:textSize="20dp"
+                android:textStyle="bold"
+               />
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="100dp"
-        android:onClick="process"
-        android:text="back"
-        android:background="@drawable/smallbutton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <RadioButton
+                android:id="@+id/bp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:checked="false"
+                android:onClick="onRadioStatusClicked"
+                android:text="P"
+                android:textSize="20dp"
+                android:textStyle="bold"
+              />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginBottom="16dp"
-        android:text="Status"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/radioStatus"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!--<android.support.constraint.ConstraintLayout-->
-        <!--android:id="@+id/radioSex"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginBottom="60dp"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/spinner1"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-
-        >
-
-    <RadioGroup
-        android:id="@+id/radioSex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/spinner1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:checked="false"
-            android:onClick="onRadioSexClicked"
-            android:text="Male"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:background="@color/white"
-            android:checked="false"
-            android:onClick="onRadioSexClicked"
-            android:text="Female"
-            app:layout_constraintStart_toEndOf="@+id/radioButton3"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </RadioGroup>
+        </RadioGroup>
 
 
-    <!--</android.support.constraint.ConstraintLayout>-->
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/spinner2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
         <Spinner
-            android:id="@+id/des"
-            android:layout_width="300dp"
-            android:layout_height="35dp"
+            android:id="@+id/desSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:entries="@array/hospital"
-            android:prompt="@string/title_hospital"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
-        android:layout_marginBottom="16dp"
-        android:text="Number"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout4"
-        app:layout_constraintStart_toEndOf="@+id/textView10" />
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="58dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/radioStatus"
-        app:layout_constraintStart_toEndOf="@+id/spinner1">
-
-        <EditText
-            android:id="@+id/editText4"
-            android:layout_width="63dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:ems="10"
-            android:inputType="number"
-            tools:layout_editor_absoluteX="320dp"
-            tools:layout_editor_absoluteY="344dp" />
+            android:prompt="@string/title_hospital" />
 
 
-    </RelativeLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/smallbutton"
+            android:onClick="process"
+            android:text="submit"
+            />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
