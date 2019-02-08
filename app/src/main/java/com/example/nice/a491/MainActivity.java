@@ -42,10 +42,13 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 //                Log.d("zzzzzzzzz","gg " + dataSnapshot.getValue());
-                list.add(dataSnapshot.child("id").getValue(String.class) + " " + dataSnapshot.child("age").getValue(String.class) + " " + dataSnapshot.child("sex").getValue(String.class) + " " + dataSnapshot.child("disease").getValue(String.class));
-                allData.add((Map<String, Object>)dataSnapshot.getValue());
-                adapter.notifyDataSetChanged();
-                Log.d("zzzzzzzzz","gg " + list);
+                String checkTranfer = dataSnapshot.child("transfer").getValue(String.class);
+                String t = "transfering";
+                if(checkTranfer != null && checkTranfer.equals(t)){
+                    list.add(dataSnapshot.child("id").getValue(String.class) + " " + dataSnapshot.child("age").getValue(String.class) + " " + dataSnapshot.child("sex").getValue(String.class) + " " + dataSnapshot.child("disease").getValue(String.class));
+                    allData.add((Map<String, Object>)dataSnapshot.getValue());
+                    adapter.notifyDataSetChanged();
+                }
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -84,6 +87,8 @@ public class MainActivity extends AppCompatActivity  {
                 return false;
             }
         });
+
+
 //
         showData();
 //        this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

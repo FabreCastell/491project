@@ -42,9 +42,10 @@ public class ListActivity extends AppCompatActivity {
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                list.add(dataSnapshot.child("id").getValue(String.class) + " " + dataSnapshot.child("age").getValue(String.class) + " " + dataSnapshot.child("sex").getValue(String.class) + " " + dataSnapshot.child("disease").getValue(String.class));
-//                allData.add((Map<String, Object>)dataSnapshot.getValue());
-//                adapter.notifyDataSetChanged();
+
+                list.add(dataSnapshot.child("id").getValue(String.class) + " " + dataSnapshot.child("age").getValue(String.class) + " " + dataSnapshot.child("sex").getValue(String.class) + " " + dataSnapshot.child("disease").getValue(String.class));
+                allData.add((Map<String, Object>)dataSnapshot.getValue());
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -89,7 +90,7 @@ public class ListActivity extends AppCompatActivity {
 
         });
 
-//        showData();
+        showData();
 
     }
 
@@ -133,5 +134,7 @@ public class ListActivity extends AppCompatActivity {
 
         });
     }
+
+
 
 }

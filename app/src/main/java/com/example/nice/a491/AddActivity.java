@@ -23,6 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private TextView desidtv, diseasetv, agetv ,checkedtv;
@@ -118,24 +122,25 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         }
     }
 
-    private void addData(){
-        DatabaseReference myRef = database.getReference("0001");
+        private void addData(){
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = df.format(c);
+        DatabaseReference myRef = database.getReference("List/" + formattedDate);
 
         agetv = findViewById(R.id.ageEdit);
-//        desidtv = findViewById(R.id.spinner2);
-//        diseasetv = findViewById(R.id.spinner1);
+        myRef.child("id").setValue(formattedDate);
+        myRef.child("age").setValue(agetv.getText().toString());
+        myRef.child("sex").setValue(sex);
+        myRef.child("status").setValue(status);
+        myRef.child("destination").setValue(hospital);
+        myRef.child("disease").setValue(disease);
+        if(status.equals("p")){
+            myRef.child("transfer").setValue("transfering");
+        }else{
+            myRef.child("transfer").setValue("done");
+        }
 
-
-//        desidtv.getText();
-//        diseasetv.getText();
-
-
-
-        myRef.child("patient").child("age").setValue(agetv.getText().toString());
-        myRef.child("patient").child("sex").setValue(sex);
-        myRef.child("status").child("status").setValue(status);
-        myRef.child("status").child("destination").setValue(hospital);
-        myRef.child("patient").child("disease").setValue(disease);
     }
 
 
