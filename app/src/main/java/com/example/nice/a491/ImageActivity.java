@@ -8,25 +8,29 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 public class ImageActivity extends AppCompatActivity {
+    String ID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_page);
+        Intent passID = getIntent();
+        ID = passID.getStringExtra("ID");
 
     }
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
         if (v.getId() == R.id.back){
-            nextPage(RecordActivity.class);
+            nextPage(RecordActivity.class, ID);
         }
         hideKeyboardInput(v);
     }
 
-    private void nextPage(Class page){
+    private void nextPage(Class page, String ID){
         Intent next = new Intent(this,page);
+        next.putExtra("ID", ID);
         startActivity(next);
     }
 

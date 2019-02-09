@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,10 +36,10 @@
         <Button
             android:id="@+id/alllist"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="all list"
-            android:onClick="process"/>
+            android:onClick="process"
+            android:text="all list" />
 
         <Button
             android:id="@+id/add"
@@ -42,7 +57,7 @@
             android:text="logout" />
     </LinearLayout>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -50,37 +65,55 @@
         <TextView
             android:id="@+id/age"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="306dp"
             android:text="Age"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/text"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <EditText
             android:id="@+id/ageEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="114dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="84dp"
             android:ems="10"
             android:hint="age"
             android:inputType="text"
-           />
-
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/age" />
 
 
         <TextView
             android:id="@+id/sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="306dp"
             android:text="Sex"
             android:textStyle="bold"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ageEdit" />
 
         <RadioGroup
+            android:id="@+id/radioGroup2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sex">
 
             <RadioButton
                 android:id="@+id/bmale"
@@ -98,82 +131,89 @@
                 android:background="@color/white"
                 android:checked="false"
                 android:onClick="onRadioSexClicked"
-                android:text="Female"
-                />
+                android:text="Female" />
 
         </RadioGroup>
 
         <LinearLayout
+            android:id="@+id/linearLayout7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup2">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/di"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="Disease group"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/di"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Disease group"
-                    android:textStyle="bold"
-                    />
-
-
-                <Spinner
-                    android:id="@+id/disSpinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/group"
-                    android:prompt="@string/title_group"
-                   />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Number"
-                    android:textStyle="bold" />
-
-
-                <EditText
-                    android:id="@+id/numberEdit"
-                    android:layout_width="63dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:ems="10"
-                    android:inputType="number" />
-
-            </LinearLayout>
+                android:text="Number"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+            tools:layout_editor_absoluteX="0dp">
 
+            <Spinner
+                android:id="@+id/disSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/group"
+                android:prompt="@string/title_group" />
+
+
+            <EditText
+                android:id="@+id/numberEdit"
+                android:layout_width="63dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:ems="10"
+                android:inputType="number" />
+
+        </LinearLayout>
 
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="297dp"
             android:text="Status"
             android:textStyle="bold"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/status">
 
 
             <RadioButton
@@ -185,8 +225,7 @@
                 android:onClick="onRadioStatusClicked"
                 android:text="F"
                 android:textSize="20dp"
-                android:textStyle="bold"
-               />
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/bp"
@@ -197,36 +236,43 @@
                 android:onClick="onRadioStatusClicked"
                 android:text="P"
                 android:textSize="20dp"
-                android:textStyle="bold"
-              />
+                android:textStyle="bold" />
 
         </RadioGroup>
-
-
 
 
         <Spinner
             android:id="@+id/desSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="62dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="62dp"
+            android:layout_marginBottom="50dp"
             android:entries="@array/hospital"
-            android:prompt="@string/title_hospital" />
-
-
-
+            android:prompt="@string/title_hospital"
+            app:layout_constraintBottom_toTopOf="@+id/submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
 
         <Button
             android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="156dp"
             android:background="@drawable/smallbutton"
             android:onClick="process"
             android:text="submit"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/desSpinner" />
 
 
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

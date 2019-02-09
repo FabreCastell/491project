@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -28,25 +29,33 @@ public class MainActivity extends AppCompatActivity  {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("List");
     ListView listview;
     ArrayList<String> list=new ArrayList<>();
+    ArrayList<String> listID=new ArrayList<>();
+    ArrayList<Map<String,ArrayList<String>>> data =new ArrayList<>();
     ArrayList<Map<String,Object>> allData=new ArrayList<>();
     float x1,x2,y1,y2;
+    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
+        Intent passUser = getIntent();
+        user = passUser.getStringExtra("user");
+//        Log.d("gggggg",user);
+
         listview = findViewById(R.id.show);
-        final ArrayAdapter<String> adapter=new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,list);
+        final ArrayAdapter<String> adapter=new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,listID);
         listview.setAdapter(adapter);
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                Log.d("zzzzzzzzz","gg " + dataSnapshot.getValue());
                 String checkTranfer = dataSnapshot.child("transfer").getValue(String.class);
                 String t = "transfering";
                 if(checkTranfer != null && checkTranfer.equals(t)){
+
                     list.add(dataSnapshot.child("id").getValue(String.class) + " " + dataSnapshot.child("age").getValue(String.class) + " " + dataSnapshot.child("sex").getValue(String.class) + " " + dataSnapshot.child("disease").getValue(String.class));
-                    allData.add((Map<String, Object>)dataSnapshot.getValue());
+//                    allData.add((Map<String, Object>)dataSnapshot.getValue());
+                    listID.add(dataSnapshot.child("id").getValue(String.class));
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -80,6 +89,7 @@ public class MainActivity extends AppCompatActivity  {
                         y2 = event.getY();
                         if(x1 >= x2){
                             Intent i = new Intent(MainActivity.this, ListActivity.class);
+                            i.putExtra("user", user);
                             startActivity(i);
                         }
                         break;
@@ -97,18 +107,22 @@ public class MainActivity extends AppCompatActivity  {
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
         if (v.getId() == R.id.logout){
-            nextPage(LoginActivity.class);
+            nextPage(LoginActivity.class, "","");
+
         }else if (v.getId() == R.id.alllist){
-            nextPage(ListActivity.class);
+            nextPage(ListActivity.class, user,"");
+
         }else if (v.getId() == R.id.add){
-            nextPage(AddActivity.class);
+            nextPage(AddActivity.class, user,"");
         }
 
         hideKeyboardInput(v);
     }
 
-    private void nextPage(Class page){
+    private void nextPage(Class page, String user, String id){
         Intent next = new Intent(this,page);
+        next.putExtra("user", user);
+//        next.putExtra("id", id);
         startActivity(next);
     }
 
@@ -123,12 +137,15 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String data = parent.getItemAtPosition(position).toString();
+//                Intent intent = new Intent(MainActivity.this, RecordActivity.class);
+//                intent.putExtra("data" ,data);
+//                startActivity(intent);
 
-                Intent intent = new Intent(MainActivity.this, RecordActivity.class);
-                //based on item add info to intent
-                intent.putExtra("data" ,data);
-//                intent.putExtra("allData" ,allData);
-                startActivity(intent);
+
+                Log.d("ggggggggg","id" + data);
+                Intent passID = new Intent(MainActivity.this, RecordActivity.class);
+                passID.putExtra("id" ,data);
+                startActivity(passID);
             }
 
         });

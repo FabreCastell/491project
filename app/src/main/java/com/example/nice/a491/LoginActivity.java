@@ -30,20 +30,20 @@ import java.util.Date;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
+//    private FirebaseAuth mAuth;
     private EditText mId;
     private EditText mPassword;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ID");
     ArrayList<String> listId = new ArrayList();
     ArrayList<String> listPassword = new ArrayList();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        mAuth = FirebaseAuth.getInstance();
+
+//        mAuth = FirebaseAuth.getInstance();
+
         mId = findViewById(R.id.editText);
         mPassword = findViewById(R.id.editText3);
 
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                listId.remove(dataSnapshot.getValue(String.class));
+                listId.remove(dataSnapshot.getKey());
                 listPassword.remove(dataSnapshot.getValue(String.class));
             }
             @Override
@@ -83,8 +83,10 @@ public class LoginActivity extends AppCompatActivity {
         hideKeyboardInput(v);
     }
 
-    private void nextPage(Class page){
+    private void nextPage(Class page, String user){
         Intent next = new Intent(this,page);
+        next.putExtra("user", user);
+//        next.putExtra("id", id);
         startActivity(next);
     }
 
@@ -178,12 +180,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void check(String id, String password){
         if(TextUtils.isEmpty(id)){
-            Toast.makeText(LoginActivity.this, "please enter id",Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "please enter ID",Toast.LENGTH_SHORT).show();
             return;
         }
 
         if(TextUtils.isEmpty(password)){
-            Toast.makeText(LoginActivity.this, "please enter password",Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "please enter Password",Toast.LENGTH_SHORT).show();
             return;
         }
         int i = 0;
@@ -195,11 +197,12 @@ public class LoginActivity extends AppCompatActivity {
             if(listId.get(i).equals(id)){
 
                 checkId = true;
+                String user = listId.get(i);
                 Log.d("cpass","pass " + password);
                 Log.d("cpass","pass " + listPassword);
                 if(listPassword.get(i).equals(password)) {
                     checkPass = true;
-                    nextPage(MainActivity.class);
+                    nextPage(MainActivity.class, user);
                 }
             }
             i++;

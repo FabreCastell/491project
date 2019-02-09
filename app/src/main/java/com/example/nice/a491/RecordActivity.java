@@ -9,15 +9,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 public class RecordActivity extends AppCompatActivity {
-    String message;
+    String user, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_record);
 
-        Intent intent = getIntent();
-        message = intent.getStringExtra("data");
+        Intent passID = getIntent();
+        user = passID.getStringExtra("user");
+        id = passID.getStringExtra("id");
 //        TextView textView = findViewById(R.id.requestDataTextView);
 //        textView.setText(message);
 
@@ -26,34 +27,37 @@ public class RecordActivity extends AppCompatActivity {
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
         if (v.getId() == R.id.back){
-            nextPage(ListActivity.class);
+            nextPage(ListActivity.class, user, "");
         }else if (v.getId() == R.id.info){
-            Intent next = new Intent(this,InformationActivity.class);
-            next.putExtra("data",message);
-//            next.putExtra("allData" ,allData);
-            startActivity(next);
+            nextPage(InformationActivity.class, user, id);
         }else if (v.getId() == R.id.map) {
-            nextPagemap(MapsActivity.class);
+            nextPagemap(MapsActivity.class, user, id);
         }else if (v.getId() == R.id.map2) {
-            nextPagemap2(MapsActivity.class);
+            nextPagemap2(MapsActivity.class, user, id);
         }else if (v.getId() == R.id.image) {
-            nextPage(ImageActivity.class);
+            nextPage(ImageActivity.class, user, id);
         }
         hideKeyboardInput(v);
     }
 
-    private void nextPage(Class page){
+    private void nextPage(Class page, String user, String id){
         Intent next = new Intent(this,page);
+        next.putExtra("user", user);
+        next.putExtra("id", id);
         startActivity(next);
     }
-    private void nextPagemap(Class page){
+    private void nextPagemap(Class page, String user, String id){
         Intent next = new Intent(this,page);
         next.putExtra("type","1");
+        next.putExtra("user", user);
+        next.putExtra("id", id);
         startActivity(next);
     }
-    private void nextPagemap2(Class page){
+    private void nextPagemap2(Class page, String user, String id){
         Intent next = new Intent(this,page);
         next.putExtra("type","2");
+        next.putExtra("user", user);
+        next.putExtra("id", id);
         startActivity(next);
     }
     // To hide Android soft keyboard

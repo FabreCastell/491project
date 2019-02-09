@@ -29,14 +29,18 @@ import java.util.Date;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private TextView desidtv, diseasetv, agetv ,checkedtv;
+    private TextView agetv ;
     private String status, sex, hospital, disease ;
     float x1,x2,y1,y2;
+    String user, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_page);
+
+        Intent passUser = getIntent();
+        user = passUser.getStringExtra("user");
 
 
         Spinner hospital = findViewById(R.id.desSpinner);
@@ -63,25 +67,26 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
         if (v.getId() == R.id.logout){
-            nextPage(LoginActivity.class);
+            nextPage(LoginActivity.class,user,"");
         }else if (v.getId() == R.id.currentlist){
-            nextPage(MainActivity.class);
+            nextPage(MainActivity.class,user,"");
         }else if (v.getId() == R.id.alllist){
-            nextPage(ListActivity.class);
+            nextPage(ListActivity.class,user,"");
         }else if (v.getId() == R.id.add){
-            nextPage(AddActivity.class);
+            nextPage(AddActivity.class,user,"");
         }else if (v.getId() == R.id.submit){
             addData();
-            nextPage(MainActivity.class);
+            nextPage(InformationActivity.class, user, id);
         }
         hideKeyboardInput(v);
     }
 
-    private void nextPage(Class page){
+    private void nextPage(Class page, String user, String id){
         Intent next = new Intent(this,page);
+        next.putExtra("user", user);
+        next.putExtra("id", id);
         startActivity(next);
     }
-
     // To hide Android soft keyboard
     private void hideKeyboardInput(View v){
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -130,6 +135,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
         agetv = findViewById(R.id.ageEdit);
         myRef.child("id").setValue(formattedDate);
+        myRef.child("hospital").setValue(user);
         myRef.child("age").setValue(agetv.getText().toString());
         myRef.child("sex").setValue(sex);
         myRef.child("status").setValue(status);
@@ -140,6 +146,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         }else{
             myRef.child("transfer").setValue("done");
         }
+        id = formattedDate;
 
     }
 
@@ -174,6 +181,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 y2 = touchEvent.getY();
                 if(x1 <= x2){
                     Intent i = new Intent(this, ListActivity.class);
+                    i.putExtra("user", user);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 }

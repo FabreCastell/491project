@@ -22,19 +22,19 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ListActivity extends AppCompatActivity {
-    String message;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("List");
     ListView listview;
     ArrayList<String> list=new ArrayList<>();
     ArrayList<Map<String,Object>> allData=new ArrayList<>();
     float x1,x2,y1,y2;
+    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_page);
         Intent intent = getIntent();
-        message = intent.getStringExtra("data");
+        user = intent.getStringExtra("user");
 
         listview = findViewById(R.id.show);
         final ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,list);
@@ -77,10 +77,12 @@ public class ListActivity extends AppCompatActivity {
                         y2 = event.getY();
                         if(x1 <= x2){
                             Intent i = new Intent(ListActivity.this, MainActivity.class);
+                            i.putExtra("user", user);
                             startActivity(i);
                             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         }else if(x1 >= x2){
                             Intent i = new Intent(ListActivity.this, AddActivity.class);
+                            i.putExtra("user", user);
                             startActivity(i);
                         }
                         break;
