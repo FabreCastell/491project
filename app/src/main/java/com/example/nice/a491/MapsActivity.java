@@ -55,6 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String latitude;
     private String longitude;
     private String TypeIntent;
+    private String user, id;
     //FireBase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     @Override
@@ -66,6 +67,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         TypeIntent = getIntent().getStringExtra("type");
+        user = getIntent().getStringExtra("user");
+        id = getIntent().getStringExtra("id");
 
 //        addLocation();
 //        getLocation();
