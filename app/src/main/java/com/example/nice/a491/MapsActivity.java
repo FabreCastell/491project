@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.RestrictionsManager;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -45,17 +46,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
-
+    private Handler loopHandler = new Handler();
     private GoogleMap mMap;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
     private final LatLng DefaultLocation = new LatLng(18.795711, 98.952684);
-
-
+    private Integer ToggleLoop = 0;
+    private Integer Count = 0;
     private String latitude;
     private String longitude;
     private String TypeIntent;
     private String user, id;
+    private double latdb = 0;
+    private double lngdb = 0;
     //FireBase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     @Override
@@ -70,22 +73,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         user = getIntent().getStringExtra("user");
         id = getIntent().getStringExtra("id");
 
-//        addLocation();
-//        getLocation();
-//        DatabaseReference mylng = database.getReference("user1").child("lng");
-//        mylng.setValue(longitude);
-//        new Thread(new Runnable() {
-//            public void run() {
-//                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference mylat = database.getReference("user1").child("lat");
-//                mylat.setValue(latitude);
-//                DatabaseReference mylng = database.getReference("user1").child("lng");
-//                mylng.setValue(longitude);
-//            }
-//        }).start();
-//        InitFirebase();
-//        addLocation();
     }
+
+    public void updateGPStoDB(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mylat = database.getReference("user1").child("lat");
+        mylat.setValue(latdb);
+        DatabaseReference mylng = database.getReference("user1").child("lng");
+        mylng.setValue(lngdb);
+        //    mylng.setValue(lngdb+Count);
+
+    }
+    public void startloop(Location lct){
+        latdb = lct.getLatitude();
+        lngdb = lct.getLongitude();
+        loopRunnable.run();
+    //    onMyLocationClick(lct);
+    }
+
+    public void stoploop(){
+        loopHandler.removeCallbacks(loopRunnable);
+        Toast.makeText(MapsActivity.this,"Stop Loop Now", Toast.LENGTH_SHORT).show();
+    }
+
+    private Runnable loopRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Count++;
+            Toast.makeText(MapsActivity.this, "Loop Count" + Count, Toast.LENGTH_SHORT).show();
+            updateGPStoDB();
+            loopHandler.postDelayed(this,5000);
+        }
+    };
 
     private void InitFirebase() {
         DatabaseReference myRef = database.getReference();
@@ -127,18 +146,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(TypeIntent.equals("2")){
             mMap.addMarker(new MarkerOptions().position(new LatLng(18.795732,98.952681)).title("mark 1")
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
-
-            mMap.addMarker(new MarkerOptions().position(new LatLng(18.835732,98.952681)).title("mark 2")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
-
-            mMap.addMarker(new MarkerOptions().position(new LatLng(18.695732,98.852681)).title("mark 3")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
-
-            mMap.addMarker(new MarkerOptions().position(new LatLng(18.695732,98.952681)).title("mark 4")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
-
-            mMap.addMarker(new MarkerOptions().position(new LatLng(18.795732,98.752681)).title("mark 5")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
         }
 
 
@@ -161,17 +168,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
         double lon = (location.getLongitude());
         double lat = (location.getLatitude());
-        latitude = lat + "";
-        longitude = lon + "";
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mylat = database.getReference("user1").child("lat");
-        mylat.setValue(lat);
-        DatabaseReference mylng = database.getReference("user1").child("lng");
-        mylng.setValue(lon);
-        Log.i(latitude,longitude);
+        Toast.makeText(this, "Current location: Lat " + lat + "\n Lon :"+ lon , Toast.LENGTH_LONG).show();
+////        FirebaseDatabase database = FirebaseDatabase.getInstance();
+////        DatabaseReference mylat = database.getReference("user1").child("lat");
+////        mylat.setValue(lat);
+////        DatabaseReference mylng = database.getReference("user1").child("lng");
+////        mylng.setValue(lon);
+        startloop(location);
     }
 
     @Override
@@ -179,6 +184,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
+//        if(ToggleLoop.equals(0)){
+//            startloop();
+//            ToggleLoop = 1;
+//        }
+//        else{
+//            stoploop();
+//            ToggleLoop = 0;
+//
+//        }
+        stoploop();
         return false;
     }
 
@@ -221,47 +236,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void getLocation(){
 
     }
-
-//
-//    private void addLocation() {
-//        Map<String, Object> gps = new HashMap<>();
-//        gps.put("la", latitude);
-//        gps.put("lo", longitude);
-//
-//
-//        // Add a new document with a generated ID
-//        db.collection("gps")
-//                .add(gps)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d("test", "DocumentSnapshot added with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("test", "Error adding document", e);
-//                    }
-//                });
-//    }
-
-//    private void getLocation() {
-//        db.collection("users")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (DocumentSnapshot document : task.getResult()) {
-//                                Log.d("test", document.getId() + " => " + document.getData());
-//                            }
-//                        } else {
-//                            Log.w("test", "Error getting documents.", task.getException());
-//                        }
-//                    }
-//                });
-//    }
 
 
 }
