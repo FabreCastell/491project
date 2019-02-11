@@ -4,7 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -29,10 +34,11 @@ import java.util.Date;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private TextView agetv ;
-    private String status, sex, hospital, disease ;
-    float x1,x2,y1,y2;
-    String user, id;
+    private EditText agetv, numbertv;
+    private String status = "รักษาเอง", sex = "ชาย", hospital, disease ;
+    private float x1,x2,y1,y2;
+    private String user, id;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +48,14 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         Intent passUser = getIntent();
         user = passUser.getStringExtra("user");
 
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("เพิ่มผู้ป่วย");
+        setSupportActionBar(toolbar);
 
         Spinner hospital = findViewById(R.id.desSpinner);
         Spinner disease = findViewById(R.id.disSpinner);
+        agetv = findViewById(R.id.ageEdit);
+        numbertv = findViewById(R.id.numberEdit);
 
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -52,31 +63,27 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         ArrayAdapter<CharSequence> adapterdisease = ArrayAdapter.createFromResource(this,
                 R.array.group, android.R.layout.simple_spinner_dropdown_item);
 
-
 // Apply the adapter to the spinner
         hospital.setAdapter(adapter);
         disease.setAdapter(adapterdisease);
         hospital.setOnItemSelectedListener(this);
         disease.setOnItemSelectedListener(this);
 
-
-
-
     }
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
-        if (v.getId() == R.id.logout){
-            nextPage(LoginActivity.class,user,"");
-        }else if (v.getId() == R.id.currentlist){
-            nextPage(MainActivity.class,user,"");
+        if (v.getId() == R.id.currentlist){
+            nextPage(MainActivity.class,user," ");
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }else if (v.getId() == R.id.alllist){
-            nextPage(ListActivity.class,user,"");
+            nextPage(ListActivity.class,user," ");
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }else if (v.getId() == R.id.add){
-            nextPage(AddActivity.class,user,"");
+            nextPage(AddActivity.class,user," ");
         }else if (v.getId() == R.id.submit){
-            addData();
-            nextPage(InformationActivity.class, user, id);
+            addData(agetv.getText().toString(), numbertv.getText().toString());
+
         }
         hideKeyboardInput(v);
     }
@@ -96,16 +103,15 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     public void onRadioSexClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
-
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.bmale:
                 if (checked)
-                    sex = "male";
+                    sex = "ชาย";
                     break;
             case R.id.bfemale:
                 if (checked)
-                    sex = "female";
+                    sex = "หญิง";
                     break;
         }
     }
@@ -118,39 +124,14 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         switch(view.getId()) {
             case R.id.bf:
                 if (checked)
-                    status = "f";
+                    status = "รักษาเอง";
                 break;
             case R.id.bp:
                 if (checked)
-                    status = "p";
+                    status = "ส่งต่อไปโรงบาลอื่น";
                 break;
         }
     }
-
-        private void addData(){
-        Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String formattedDate = df.format(c);
-        DatabaseReference myRef = database.getReference("List/" + formattedDate);
-
-        agetv = findViewById(R.id.ageEdit);
-        myRef.child("id").setValue(formattedDate);
-        myRef.child("hospital").setValue(user);
-        myRef.child("age").setValue(agetv.getText().toString());
-        myRef.child("sex").setValue(sex);
-        myRef.child("status").setValue(status);
-        myRef.child("destination").setValue(hospital);
-        myRef.child("disease").setValue(disease);
-        if(status.equals("p")){
-            myRef.child("transfer").setValue("transfering");
-        }else{
-            myRef.child("transfer").setValue("done");
-        }
-        id = formattedDate;
-
-    }
-
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -160,7 +141,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
             case R.id.disSpinner:
                 disease = parent.getItemAtPosition(position).toString();
-                Log.d("gg ","zzzzzzzzzzzz" + disease);
+                //Log.d("gg ","zzzzzzzzzzzz" + disease);
                 break;
         }
     }
@@ -169,6 +150,51 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     public void onNothingSelected(AdapterView<?> parent) {
         Toast.makeText(this, "You selected nothing", Toast.LENGTH_LONG).show();
     }
+
+    private void addData(String agetv, String numbertv){
+        if(TextUtils.isEmpty(agetv)){
+            Toast.makeText(AddActivity.this, "กรุณาใส่อายุ",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = df.format(c);
+
+        DatabaseReference myRef = database.getReference("List/" + formattedDate);
+        myRef.child("id").setValue(formattedDate); //1
+        myRef.child("hospital").setValue(user);//6
+        myRef.child("age").setValue(agetv); //3
+        myRef.child("sex").setValue(sex); //2
+        myRef.child("status").setValue(status); //7
+        myRef.child("disease").setValue(disease); //4
+        myRef.child("lat").setValue(" ");
+        myRef.child("lng").setValue(" ");
+
+        if(disease.equals("nsteacs")){
+            if(TextUtils.isEmpty(numbertv)){
+                Toast.makeText(AddActivity.this, "กรุณาใส่เลขกำกับโรค",Toast.LENGTH_SHORT).show();
+                myRef.removeValue();
+                return;
+            }
+            myRef.child("numberDisease").setValue(numbertv); //4
+        }else{
+            myRef.child("numberDisease").setValue(" "); //4
+        }
+
+        if(status.equals("ส่งต่อไปโรงบาลอื่น")){
+            myRef.child("transfer").setValue("กำลังเคลื่อนย้าย");
+            myRef.child("destination").setValue(hospital);//5
+        }else{
+            myRef.child("transfer").setValue(" ");
+            myRef.child("destination").setValue(" ");//5
+        }
+        id = formattedDate;
+        nextPage(InformationActivity.class, user, id);
+
+    }
+
+
 
     public boolean onTouchEvent(MotionEvent touchEvent){
         switch(touchEvent.getAction()){
@@ -179,7 +205,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             case MotionEvent.ACTION_UP:
                 x2 = touchEvent.getX();
                 y2 = touchEvent.getY();
-                if(x1 <= x2){
+                if(x1 < x2 - 300){
                     Intent i = new Intent(this, ListActivity.class);
                     i.putExtra("user", user);
                     startActivity(i);
@@ -189,5 +215,25 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         }
         return false;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.app_bar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.actin_logout:
+                nextPage(LoginActivity.class, " ", " ");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
 }

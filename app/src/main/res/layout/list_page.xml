@@ -6,17 +6,23 @@
     tools:context=".ListActivity"
     android:orientation="vertical">
 
+    <include
+        layout="@layout/toolbar"/>
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
 
         <Button
             android:id="@+id/currentlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="current list"
+            android:text="กำลังเคลื่อย้าย"
             android:onClick="process"
             />
 
@@ -25,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="all list"
+            android:background="@color/colorPrimary"
             />
 
         <Button
@@ -33,16 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="add"
+            android:text="เพิ่มผู้ป่วย"
             android:onClick="process"/>
 
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="logout"
-            android:onClick="process"/>
     </LinearLayout>
 
     <RelativeLayout
