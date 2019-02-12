@@ -47,8 +47,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     private Toolbar toolbar;
     private double lat =0;
     private double lng =0;
-    private String changeUser;
-    private String formattedDate;
+    private String changeUser, keepid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 lat = dataSnapshot.child("lat").getValue(Double.class);
                 lng = dataSnapshot.child("long").getValue(Double.class);
                 Log.d("zzzzzzzzzzzzz" , "2 " + lat + " " +lng);
-                Location();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -187,7 +186,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         }
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        formattedDate = df.format(c);
+        String formattedDate = df.format(c);
+        keepid = formattedDate;
         checkHospital(user);
 
         DatabaseReference myRef = database.getReference("List/" + formattedDate);
@@ -198,6 +198,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         myRef.child("sex").setValue(sex); //2
         myRef.child("status").setValue(status); //7
         myRef.child("disease").setValue(disease); //4
+        myRef.child("lat").setValue(lat);
+        myRef.child("lng").setValue(lng);
 
 
         Log.d("zzzzzzzzzzzzz" , "3 " + lat + " " +lng);
@@ -223,14 +225,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         id = formattedDate;
         nextPage(InformationActivity.class, user, id);
     }
-
-    public void Location(){
-        DatabaseReference myRef = database.getReference("List/" + formattedDate);
-        myRef.child("lat").setValue(lat);
-        myRef.child("lng").setValue(lng);
-    }
-
-
 
     public boolean onTouchEvent(MotionEvent touchEvent){
         switch(touchEvent.getAction()){

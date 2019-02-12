@@ -47,10 +47,13 @@ public class RecordActivity extends AppCompatActivity {
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("zzzzzzzzzzzzz" , "1 " + lat + " " +lng);
-                lat = dataSnapshot.child("lat").getValue(Double.class);
-                lng = dataSnapshot.child("lng").getValue(Double.class);
-                Log.d("zzzzzzzzzzzzz" , "2 " + lat + " " +lng);
+                if(dataSnapshot.exists()){
+                    Log.d("zzzzzzzzzzzzz" , "1 " + lat + " " +lng);
+                    lat = dataSnapshot.child("lat").getValue(Double.class);
+                    lng = dataSnapshot.child("lng").getValue(Double.class);
+                    Log.d("zzzzzzzzzzzzz" , "2 " + lat + " " +lng);
+
+                }
 
             }
 
