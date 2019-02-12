@@ -53,12 +53,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final LatLng DefaultLocation = new LatLng(18.795711, 98.952684);
     private Integer ToggleLoop = 0;
     private Integer Count = 0;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
     private String TypeIntent;
     private String user, id;
     private double latdb = 0;
     private double lngdb = 0;
+    private double latIntent;
+    private double lngIntent;
     //FireBase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     @Override
@@ -72,14 +74,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TypeIntent = getIntent().getStringExtra("type");
         user = getIntent().getStringExtra("user");
         id = getIntent().getStringExtra("id");
+        latIntent = getIntent().getDoubleExtra("lat",18.795000);
+        lngIntent = getIntent().getDoubleExtra("lng",98.952000);
 
     }
 
     public void updateGPStoDB(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mylat = database.getReference("user1").child("lat");
+        DatabaseReference mylat = database.getReference("List/"+id).child("lat");
         mylat.setValue(latdb);
-        DatabaseReference mylng = database.getReference("user1").child("lng");
+        DatabaseReference mylng = database.getReference("List/"+id).child("lng");
         mylng.setValue(lngdb);
         //    mylng.setValue(lngdb+Count);
 
@@ -99,8 +103,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Runnable loopRunnable = new Runnable() {
         @Override
         public void run() {
-            Count++;
-            Toast.makeText(MapsActivity.this, "Loop Count" + Count, Toast.LENGTH_SHORT).show();
+         //   Count++;
+          //  Toast.makeText(MapsActivity.this, "Loop Count" + Count, Toast.LENGTH_SHORT).show();
             updateGPStoDB();
             loopHandler.postDelayed(this,5000);
         }
@@ -134,8 +138,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
-//        mMap.addMarker(new MarkerOptions().position(DefaultLocation).title("Marker in Sydney"));
 
 
         if(TypeIntent.equals("1")){
@@ -143,14 +147,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setOnMyLocationClickListener(this);
             enableMyLocation();
         }
+
         if(TypeIntent.equals("2")){
-            mMap.addMarker(new MarkerOptions().position(new LatLng(18.795732,98.952681)).title("mark 1")
+
+            mMap.addMarker(new MarkerOptions().position(new LatLng(latIntent,lngIntent))
+                    .title("Ambulance"+latIntent+" "+lngIntent)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
         }
 
 
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.795732, 98.952681), 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latIntent, lngIntent), 10));
 
     }
 
@@ -171,11 +178,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double lon = (location.getLongitude());
         double lat = (location.getLatitude());
         Toast.makeText(this, "Current location: Lat " + lat + "\n Lon :"+ lon , Toast.LENGTH_LONG).show();
-////        FirebaseDatabase database = FirebaseDatabase.getInstance();
-////        DatabaseReference mylat = database.getReference("user1").child("lat");
-////        mylat.setValue(lat);
-////        DatabaseReference mylng = database.getReference("user1").child("lng");
-////        mylng.setValue(lon);
         startloop(location);
     }
 
@@ -232,10 +234,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
-
-    private void getLocation(){
-
-    }
-
 
 }
