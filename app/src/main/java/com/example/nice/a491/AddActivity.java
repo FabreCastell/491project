@@ -14,18 +14,13 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,8 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -47,7 +40,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     private Toolbar toolbar;
     private double lat =0;
     private double lng =0;
-    private String changeUser, keepid;
+    private String changeUser;
 
 
     @Override
@@ -156,7 +149,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
             case R.id.bp:
                 if (checked)
-                    status = "ส่งต่อไปโรงบาลอื่น";
+                    status = "ส่งต่อไปโรงพยาบาลอื่น";
                 break;
         }
     }
@@ -176,7 +169,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        Toast.makeText(this, "You selected nothing", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "กรุณาเลือก", Toast.LENGTH_LONG).show();
     }
 
     private void addData(String agetv, String numbertv){
@@ -187,12 +180,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String formattedDate = df.format(c);
-        keepid = formattedDate;
         checkHospital(user);
 
         DatabaseReference myRef = database.getReference("List/" + formattedDate);
         myRef.child("id").setValue(formattedDate); //1
-
         myRef.child("hospital").setValue(changeUser);//6
         myRef.child("age").setValue(agetv); //3
         myRef.child("sex").setValue(sex); //2
@@ -215,7 +206,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             myRef.child("numberDisease").setValue(" "); //4
         }
 
-        if(status.equals("ส่งต่อไปโรงบาลอื่น")){
+        if(status.equals("ส่งต่อไปโรงพยาบาลอื่น")){
             myRef.child("transfer").setValue("กำลังเคลื่อนย้าย");
             myRef.child("destination").setValue(hospital);//5
         }else{
@@ -392,7 +383,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.actin_logout:
+            case R.id.action_logout:
                 nextPage(LoginActivity.class, " ", " ");
                 return true;
             default:

@@ -1,12 +1,10 @@
 package com.example.nice.a491;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,17 +15,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity  {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("List");
@@ -49,7 +43,7 @@ public class MainActivity extends AppCompatActivity  {
         user = passUser.getStringExtra("user");
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("กำลังเคลื่อย้าย");
+        toolbar.setTitle("รายการที่กำลังเคลื่อนย้าย");
         setSupportActionBar(toolbar);
 
         listview = findViewById(R.id.show);
@@ -174,7 +168,7 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.actin_logout:
+            case R.id.action_logout:
                 nextPage(LoginActivity.class, " "," " );
                 return true;
             default:

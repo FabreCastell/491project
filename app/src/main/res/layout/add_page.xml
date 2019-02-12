@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="กำลังเคลื่อย้าย"
+            android:text="กำลังเคลื่อนย้าย"
             android:onClick="process"
             />
 
@@ -58,8 +56,10 @@
             android:layout_height="24dp"
             android:layout_marginStart="85dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="301dp"
             android:text="อายุ"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,11 +68,13 @@
             android:id="@+id/ageEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="96dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
             android:ems="10"
             android:hint="อายุ"
             android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/age" />
 
@@ -83,8 +85,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="85dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="302dp"
             android:text="เพศ"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ageEdit" />
 
@@ -125,7 +129,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="85dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="92dp"
             android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup2">
 
@@ -182,9 +188,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="85dp"
-            android:layout_marginTop="20dp"
-            android:text="สถาณะ"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="280dp"
+            android:text="สถานะ"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
@@ -229,8 +237,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="85dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="150dp"
             android:text="โรงพยาบาลปลายทาง(ส่งต่อ)"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
@@ -238,10 +248,12 @@
             android:id="@+id/desSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="96dp"
+            android:layout_marginStart="90dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="33dp"
             android:entries="@array/hospital"
             android:prompt="@string/title_hospital"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -251,15 +263,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="155dp"
-            android:layout_marginTop="30dp"
             android:layout_marginEnd="156dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/smallbutton"
             android:onClick="process"
             android:text="ยืนยัน"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.481"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/desSpinner" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>

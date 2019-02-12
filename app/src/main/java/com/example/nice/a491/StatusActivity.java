@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,10 +18,6 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class StatusActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -88,9 +83,10 @@ public class StatusActivity extends AppCompatActivity implements AdapterView.OnI
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
-        if (v.getId() == R.id.submit){
+        if (v.getId() == R.id.back){
+            nextPage(RecordActivity.class, user, id);
+        }else if (v.getId() == R.id.submit){
             changeStatus();
-
         }
         hideKeyboardInput(v);
     }
@@ -132,7 +128,7 @@ public class StatusActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.actin_logout:
+            case R.id.action_logout:
                 nextPage(LoginActivity.class, "","");
                 return true;
             default:

@@ -15,8 +15,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class InformationActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private TextView idtv, hospitalidtv, desidtv, diseasetv, sextv, statustv, agetv, transfertv;
     private String transfer, status;
     private String user, id;
     private Toolbar toolbar;
@@ -49,14 +46,13 @@ public class InformationActivity extends AppCompatActivity {
 
         showData();
 
-
-
-
     }
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
-        if (v.getId() == R.id.add){
+        if (v.getId() == R.id.back){
+            nextPage(RecordActivity.class, user, id);
+        }else if (v.getId() == R.id.add){
             nextPage(StatusActivity.class, user, id);
         }else if(v.getId() == R.id.change){
             changeState();
@@ -92,24 +88,25 @@ public class InformationActivity extends AppCompatActivity {
                 String sex = dataSnapshot.child("sex").getValue(String.class);
                 status = dataSnapshot.child("status").getValue(String.class);
                 transfer = dataSnapshot.child("transfer").getValue(String.class);
+                String number = dataSnapshot.child("numberDisease").getValue(String.class);
 
-                idtv = findViewById(R.id.textView7);
-                hospitalidtv = findViewById(R.id.textView8);
-                agetv = findViewById(R.id.textView9);
-                sextv = findViewById(R.id.textView10);
-                diseasetv = findViewById(R.id.textView11);
-                statustv = findViewById(R.id.textView12);
-                desidtv = findViewById(R.id.textView13);
-                transfertv = findViewById(R.id.textView14);
+                TextView idtv = findViewById(R.id.textViewDate);
+                TextView hospitalidtv = findViewById(R.id.textViewHopital);
+                TextView agetv = findViewById(R.id.textViewAge);
+                TextView sextv = findViewById(R.id.textViewSex);
+                TextView diseasetv = findViewById(R.id.textViewDis);
+                TextView statustv = findViewById(R.id.textViewState);
+                TextView desidtv = findViewById(R.id.textViewDes);
+                TextView transfertv = findViewById(R.id.textViewTran);
 
-                idtv.setText("เวลา: " + id);
-                hospitalidtv.setText("โรงพยาบาล: " + hospitalid);
+                idtv.setText("วันและเวลา: " + id);
+                hospitalidtv.setText("โรงพยาบาลต้นทาง: " + hospitalid);
                 agetv.setText("อายุ: " + age);
                 sextv.setText("เพศ: " + sex);
-                statustv.setText("สถาณะ: " + status);
+                statustv.setText("สถานะ: " + status);
                 desidtv.setText("โรงพยาบาลปลายทาง: " + desid);
-                diseasetv.setText("กลุ่มโรคหัวใจ: " + disease);
-                transfertv.setText("สถาณะการส่ง: " + transfer);
+                diseasetv.setText("กลุ่มโรคหัวใจ: " + disease + " " + number);
+                transfertv.setText("สถานะการเคลื่อนย้าย: " + transfer);
 
             }
 
@@ -122,7 +119,7 @@ public class InformationActivity extends AppCompatActivity {
 
     public void changeState(){
         DatabaseReference myRef = database.getReference("List/" + id);
-        if(status.equals("ส่งต่อไปโรงบาลอื่น")) {
+        if(status.equals("ส่งต่อไปโรงพยาบาลอื่น")) {
             if(transfer.equals("กำลังเคลื่อนย้าย")) {
                 myRef.child("transfer").setValue("ถึงโรงพยาบาลปลายทางแล้ว");
             }else{
@@ -143,7 +140,7 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.actin_logout:
+            case R.id.action_logout:
                 nextPage(LoginActivity.class, " "," ");
                 return true;
             default:

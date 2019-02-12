@@ -12,14 +12,52 @@
         android:id="@+id/include"
         layout="@layout/toolbar_menu" />
 
-    <Button
-        android:id="@+id/upload"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:background="@drawable/button"
-        android:text="upload"
-        app:layout_constraintBottom_toTopOf="@+id/back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/upload"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/button"
+            android:text="อัพโหลดรูปภาพ"
+            android:onClick="process"
+            app:layout_constraintBottom_toTopOf="@+id/back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/smallbutton"
+            android:onClick="process"
+            android:text="ย้อนกลับ"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageShow"
+            android:layout_width="365dp"
+            android:layout_height="365dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
 
 </LinearLayout>

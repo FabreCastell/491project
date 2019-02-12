@@ -15,7 +15,6 @@ public class FirstFragment extends Fragment {
 
     private View view;
     private Button inputButton;
-    private EditText input;
     private String messageText;
     private String messageUser;
     private long messageTime;
@@ -31,7 +30,8 @@ public class FirstFragment extends Fragment {
         inputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input = view.findViewById(R.id.input);
+                EditText input = view.findViewById(R.id.input);
+                messageText = input.getText().toString();
             }
         });
 

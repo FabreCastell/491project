@@ -4,11 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/actin_logout"
+        android:id="@+id/action_logout"
         android:title="Logout"
-        android:icon="@mipmap/baseline_exit_to_app_black_18dp"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"
 
+
+        />
 
 
 </menu>

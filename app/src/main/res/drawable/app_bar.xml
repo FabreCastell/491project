@@ -13,4 +13,17 @@
                 android:color="#000000" />
         </shape>
     </item>
+    <item>
+        <shape android:shape="line"
+            >
+            <solid android:color="#FFFFFF" />
+        </shape>
+        <shape>
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="2dp"
+                android:color="#000000" />
+        </shape>
+    </item>
+
 </layer-list>

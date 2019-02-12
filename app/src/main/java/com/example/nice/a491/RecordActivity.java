@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,8 +42,8 @@ public class RecordActivity extends AppCompatActivity {
 //        TextView textView = findViewById(R.id.requestDataTextView);
 //        textView.setText(message);
 
-        DatabaseReference myref = database.getReference("List/" + id);
-        myref.addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref = database.getReference("List/" + id);
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -121,7 +120,7 @@ public class RecordActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.actin_logout:
+            case R.id.action_logout:
                 nextPage(LoginActivity.class, " "," ");
                 return true;
             default:
