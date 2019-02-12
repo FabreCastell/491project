@@ -31,7 +31,7 @@ public class ListActivity extends AppCompatActivity {
     private ArrayList<String> list=new ArrayList<>();
     private ArrayList<Map<String,Object>> allData=new ArrayList<>();
     float x1,x2,y1,y2;
-    private String user;
+    private String user ;
     private Toolbar toolbar;
 
     @Override
@@ -138,7 +138,7 @@ public class ListActivity extends AppCompatActivity {
 //                intent.putExtra("data" ,data);
 //                startActivity(intent);
 
-                nextPage(RecordActivity.class, user, data);
+                nextPage(RecordActivity.class, user, data );
             }
 
         });

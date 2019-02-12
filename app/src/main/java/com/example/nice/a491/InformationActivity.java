@@ -30,6 +30,9 @@ public class InformationActivity extends AppCompatActivity {
     private String transfer, status;
     private String user, id;
     private Toolbar toolbar;
+    private double lat =0;
+    private double lng  = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,9 @@ public class InformationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         showData();
+
+
+
 
     }
 
@@ -62,6 +68,8 @@ public class InformationActivity extends AppCompatActivity {
         Intent next = new Intent(this,page);
         next.putExtra("user", user);
         next.putExtra("id", id);
+
+
         startActivity(next);
     }
 

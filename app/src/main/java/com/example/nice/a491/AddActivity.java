@@ -3,6 +3,7 @@ package com.example.nice.a491;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -22,6 +23,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -39,6 +45,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     private float x1,x2,y1,y2;
     private String user, id;
     private Toolbar toolbar;
+    private double lat =0;
+    private double lng =0;
+    private String changeUser;
+    private String formattedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +78,25 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         disease.setAdapter(adapterdisease);
         hospital.setOnItemSelectedListener(this);
         disease.setOnItemSelectedListener(this);
+
+        DatabaseReference mapRef = database.getReference("Hospital/" + user);
+        mapRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("zzzzzzzzzzzzz" , "" + lat + " " +lng);
+                lat = dataSnapshot.child("lat").getValue(Double.class);
+                lng = dataSnapshot.child("long").getValue(Double.class);
+                Log.d("zzzzzzzzzzzzz" , "2 " + lat + " " +lng);
+                Location();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ggg", "failread realtimedb");
+            }
+
+
+
+        });
 
     }
 
@@ -156,20 +185,22 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             Toast.makeText(AddActivity.this, "กรุณาใส่อายุ",Toast.LENGTH_SHORT).show();
             return;
         }
-
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String formattedDate = df.format(c);
+        formattedDate = df.format(c);
+        checkHospital(user);
 
         DatabaseReference myRef = database.getReference("List/" + formattedDate);
         myRef.child("id").setValue(formattedDate); //1
-        myRef.child("hospital").setValue(user);//6
+
+        myRef.child("hospital").setValue(changeUser);//6
         myRef.child("age").setValue(agetv); //3
         myRef.child("sex").setValue(sex); //2
         myRef.child("status").setValue(status); //7
         myRef.child("disease").setValue(disease); //4
-        myRef.child("lat").setValue(" ");
-        myRef.child("lng").setValue(" ");
+
+
+        Log.d("zzzzzzzzzzzzz" , "3 " + lat + " " +lng);
 
         if(disease.equals("nsteacs")){
             if(TextUtils.isEmpty(numbertv)){
@@ -191,7 +222,12 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         }
         id = formattedDate;
         nextPage(InformationActivity.class, user, id);
+    }
 
+    public void Location(){
+        DatabaseReference myRef = database.getReference("List/" + formattedDate);
+        myRef.child("lat").setValue(lat);
+        myRef.child("lng").setValue(lng);
     }
 
 
@@ -214,6 +250,142 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
         }
         return false;
+    }
+
+
+
+    public void checkHospital(String user){
+        switch (user){
+            case "01":
+                changeUser = "โรงพยาบาลมหาราชนครเชียงใหม่";
+                break;
+            case "02":
+                changeUser = "โรงพยาบาลนครพิงค์";
+                break;
+            case "03":
+                changeUser = "โรงพยาบาลสารภี";
+                break;
+            case "04":
+                changeUser = "โรงพยาบาลสันทราย";
+                break;
+            case "05":
+                changeUser = "โรงพยาบาลสันกำแพง";
+                break;
+            case "06":
+                changeUser = "โรงพยาบาลหางดง";
+                break;
+            case "07":
+                changeUser = "โรงพยาบาลดอยสะเก็ด";
+                break;
+            case "08":
+                changeUser = "โรงพยาบาลสันป่าตอง";
+                break;
+            case "09":
+                changeUser = "โรงพยาบาลแม่ออน";
+                break;
+            case "10":
+                changeUser = "โรงพยาบาลแม่วาง";
+                break;
+            case "11":
+                changeUser = "โรงพยาบาลแม่แตง";
+                break;
+            case "12":
+                changeUser = "โรงพยาบาลสะเมิง";
+                break;
+            case "13":
+                changeUser = "โรงพยาบาลจอมทอง";
+                break;
+            case "14":
+                changeUser = "โรงพยาบาลเชียงดาว";
+                break;
+            case "15":
+                changeUser = "โรงพยาบาลฮอด";
+                break;
+            case "16":
+                changeUser = "โรงพยาบาลพร้าว";
+                break;
+            case "17":
+                changeUser = "โรงพยาบาลดอยเต่า";
+                break;
+            case "18":
+                changeUser = "โรงพยาบาลไชยปราการ";
+                break;
+            case "19":
+                changeUser = "โรงพยาบาลเวียงแหง";
+                break;
+            case "20":
+                changeUser = "โรงพยาบาลฝาง";
+                break;
+            case "21":
+                changeUser = "โรงพยาบาลเทพรัตนเวชชานุกูล เฉลิมพระเกียรติ ๖๐ พรรษา";
+                break;
+            case "22":
+                changeUser = "โรงพยาบาลแม่อาย";
+                break;
+            case "23":
+                changeUser = "โรงพยาบาลอมก๋อย";
+                break;
+            case "24":
+                changeUser = "โรงพยาบาลวัดจันทร์ เฉลิมพระเกียรติ ๘๐ พรรษา";
+                break;
+            case "25":
+                changeUser = "โรงพยาบาลราชเวช";
+                break;
+            case "26":
+                changeUser = "โรงพยาบาลใกล้หมอ";
+                break;
+            case "27":
+                changeUser = "โรงพยาบาลแมคคอร์มิค";
+                break;
+            case "28":
+                changeUser = "โรงพยาบาลเซนทรัลเมมโมเรียล";
+                break;
+            case "29":
+                changeUser = "โรงพยาบาลทุ่งหัวช้าง";
+                break;
+            case "30":
+                changeUser = "โรงพยาบาลบ้านธิ";
+                break;
+            case "31":
+                changeUser = "โรงพยาบาลบ้านโฮ่ง";
+                break;
+            case "32":
+                changeUser = "โรงพยาบาลแม่ทา";
+                break;
+            case "33":
+                changeUser = "โรงพยาบาลลี้";
+                break;
+            case "34":
+                changeUser = "โรงพยาบาลลำพูน";
+                break;
+            case "35":
+                changeUser = "โรงพยาบาลเวียงหนองล่อง";
+                break;
+            case "36":
+                changeUser = "โรงพยาบาลป่าซาง";
+                break;
+            case "37":
+                changeUser = "โรงพยาบาลศรีสังวาลย์";
+                break;
+            case "38":
+                changeUser = "โรงพยาบาลขุนยวม";
+                break;
+            case "39":
+                changeUser = "โรงพยาบาลปาย";
+                break;
+            case "40":
+                changeUser = "โรงพยาบาลแม่สะเรียง";
+                break;
+            case "41":
+                changeUser = "โรงพยาบาลแม่ลาน้อย";
+                break;
+            case "42":
+                changeUser = "โรงพยาบาลสบเมย";
+                break;
+            case "43":
+                changeUser = "โรงพยาบาลปางมะผ้า";
+                break;
+        }
     }
 
     @Override
