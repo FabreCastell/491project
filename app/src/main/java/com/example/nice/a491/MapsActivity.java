@@ -97,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void stoploop(){
         loopHandler.removeCallbacks(loopRunnable);
-        Toast.makeText(MapsActivity.this,"Stop Loop Now", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MapsActivity.this,"Stop Loop Now", Toast.LENGTH_SHORT).show();
     }
 
     private Runnable loopRunnable = new Runnable() {
@@ -151,7 +151,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(TypeIntent.equals("2")){
 
             mMap.addMarker(new MarkerOptions().position(new LatLng(latIntent,lngIntent))
-                    .title("Ambulance"+latIntent+" "+lngIntent)
+                    .title("Lat : "+latIntent+" Lng : "+lngIntent)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
         }
 
@@ -183,7 +183,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Camera Reset", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
 //        if(ToggleLoop.equals(0)){
