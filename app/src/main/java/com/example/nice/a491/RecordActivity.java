@@ -42,6 +42,7 @@ public class RecordActivity extends AppCompatActivity {
     private double lat =0;
     private double lng  = 0;
     private String formattedDate;
+//    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,11 @@ public class RecordActivity extends AppCompatActivity {
         comment = findViewById(R.id.edittext_chatbox);
         listview =  findViewById(R.id.list_comment);
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,list);
+        final ArrayAdapter<String> adapter = new ArrayAdapter(RecordActivity.this,android.R.layout.simple_dropdown_item_1line,list);
+        adapter.clear();
         listview.setAdapter(adapter);
+
+
 
 
 //        TextView textView = findViewById(R.id.requestDataTextView);
@@ -95,8 +99,11 @@ public class RecordActivity extends AppCompatActivity {
                 for(DataSnapshot post : dataSnapshot.getChildren()){
                     String comment = post.getValue(String.class);
                    list.add(comment);
+
                    adapter.notifyDataSetChanged();
                 }
+
+
 
 
 
@@ -189,6 +196,9 @@ public class RecordActivity extends AppCompatActivity {
 
         DatabaseReference myRef = database.getReference("List/" + id).child("comment");
         myRef.child(formattedDate).setValue(commet); //1
+
+        finish();
+        startActivity(getIntent());
 
     }
 
