@@ -22,6 +22,7 @@
             android:layout_marginStart="85dp"
             android:layout_marginTop="20dp"
             android:text="สถานะ"
+            android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,12 +45,14 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:onClick="onRadioStatusClicked"
+                android:textSize="17dp"
                 android:text="รักษาเอง" />
 
             <RadioButton
                 android:id="@+id/bp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="17dp"
                 android:layout_marginLeft="20dp"
                 android:checked="false"
                 android:onClick="onRadioStatusClicked"
@@ -67,6 +70,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="150dp"
             android:text="โรงพยาบาลปลายทาง(ส่งต่อ)"
+            android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,6 +101,7 @@
             android:background="@drawable/smallbutton"
             android:onClick="process"
             android:text="ยืนยัน"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/desSpinner" />

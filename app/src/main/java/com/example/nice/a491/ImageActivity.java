@@ -1,6 +1,7 @@
 package com.example.nice.a491;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -15,26 +18,46 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ImageActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
+    private DatabaseReference mDatabaseRef;
+    private DatabaseReference mDataImageRef;
     private String user, id;
     private Toolbar toolbar;
-    private ImageView imageView;
     private ProgressDialog mProgressDialog;
+    private ProgressBar mLoadImage ;
 
     private static final int GALLERY_INTENT = 2;
+
+    private RecyclerView mRecyclerView;
+    private ImageAdapter mAdapter;
+    private List<upload> mUploads;
+
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +65,8 @@ public class ImageActivity extends AppCompatActivity {
         setContentView(R.layout.image_page);
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+        mDataImageRef = FirebaseDatabase.getInstance().getReference("uploads");
 
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
@@ -55,9 +80,53 @@ public class ImageActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageShow);
 
         mProgressDialog = new ProgressDialog(ImageActivity.this);
+        mLoadImage = findViewById(R.id.loadimage);
+
+        mRecyclerView = findViewById(R.id.recycleView);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mUploads = new ArrayList<>();
+//        Log.d("zzzzzzzzzz", "id  "+ mDataImageRef.getPath());
+        mDataImageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot post : dataSnapshot.getChildren()){
+                    upload upload = post.getValue(upload.class);
+                    mUploads.add(upload);
+                }
+                mAdapter = new ImageAdapter(ImageActivity.this, mUploads);
+
+                mRecyclerView.setAdapter(mAdapter);
+
+                mLoadImage.setVisibility(View.INVISIBLE);
+
+//                Picasso.get()
+//                        .load(dataSnapshot.child(id).child("imageUrl").getValue(String.class))
+//                        .fit()
+//                        .centerCrop()
+//                        .into(imageView);
+//                Log.d("zzzzzzzzzz", "id  "+ dataSnapshot.child(id).child("imageUrl").getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                toastMessage(databaseError.getMessage());
+                mLoadImage.setVisibility(View.INVISIBLE);
+
+            }
+        });
 
 
 
+
+//        upload upload = dataSnapshot.getValue(upload.class);
+//        mUploads.add(upload);
+//        Log.d("zzzzzzzzzz", "mUploads  "+ mUploads);
+
+//        mAdapter = new ImageAdapter(ImageActivity.this,mUploads);
+//
+//        mRecyclerView.setAdapter(mAdapter);
     }
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
@@ -125,9 +194,9 @@ public class ImageActivity extends AppCompatActivity {
             mProgressDialog.setMessage("Uploading Image...");
             mProgressDialog.show();
 
-            Uri uri = data.getData();
+            final Uri uri = data.getData();
 
-            StorageReference storageReference = mStorageRef.child(user).child(uri.getLastPathSegment());
+            final StorageReference storageReference = mStorageRef.child(user).child(System.currentTimeMillis() +  "." + getTypeImage(uri));
             storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -135,6 +204,20 @@ public class ImageActivity extends AppCompatActivity {
 
                     toastMessage("Upload Success");
                     mProgressDialog.dismiss();
+
+                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String  downloadUrl = uri.toString();
+                            Log.d("zzzzzzzzzz", " "+ downloadUrl);
+
+                            upload upload = new upload(" ", downloadUrl);
+
+                            String uploadID = mDatabaseRef.push().getKey();
+                            mDatabaseRef.child(id).setValue(upload);
+
+                        }
+                    });
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -145,6 +228,13 @@ public class ImageActivity extends AppCompatActivity {
             });
         }
     }
+
+    private String getTypeImage(Uri uri){
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
 
 
 }

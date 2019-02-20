@@ -58,6 +58,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="301dp"
             android:text="อายุ"
+            android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +88,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="302dp"
             android:text="เพศ"
+            android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:onClick="onRadioSexClicked"
+                android:textSize="17dp"
 
                 android:text="ชาย" />
 
@@ -119,6 +122,7 @@
                 android:layout_marginLeft="20dp"
                 android:checked="false"
                 android:onClick="onRadioSexClicked"
+                android:textSize="17dp"
                 android:text="หญิง" />
 
         </RadioGroup>
@@ -140,6 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ชนิดกลุ่มโรคหัวใจ"
+                android:textSize="17dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -148,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:text="เลขกำกับโรค"
+                android:textSize="17dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -167,6 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/group"
+
                 android:prompt="@string/title_group" />
 
 
@@ -192,6 +199,7 @@
             android:layout_marginEnd="280dp"
             android:text="สถานะ"
             android:textStyle="bold"
+            android:textSize="17dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
@@ -215,6 +223,7 @@
                 android:checked="true"
                 android:focusable="true"
                 android:onClick="onRadioStatusClicked"
+                android:textSize="17dp"
                 android:text="รักษาเอง" />
 
             <RadioButton
@@ -224,6 +233,7 @@
                 android:layout_marginLeft="20dp"
                 android:checked="false"
                 android:onClick="onRadioStatusClicked"
+                android:textSize="17dp"
                 android:text="ส่งต่อ"
 
                 />
@@ -241,6 +251,7 @@
             android:text="โรงพยาบาลปลายทาง(ส่งต่อ)"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="17dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
