@@ -1,4 +1,4 @@
-package com.example.nice.a491;
+package com.trackingTransfers.nice.a491;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,48 +22,54 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-public class ListActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("List");
     private ListView listview;
     private ArrayList<String> list=new ArrayList<>();
-    private ArrayList<Map<String,Object>> allData=new ArrayList<>();
+    private ArrayList<String> listID=new ArrayList<>();
+//    private ArrayList<Map<String,ArrayList<String>>> data =new ArrayList<>();
+//    private ArrayList<Map<String,Object>> allData=new ArrayList<>();
     float x1,x2,y1,y2;
-    private String user ;
+    private String user;
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_page);
+        setContentView(R.layout.main_menu);
 
-        Intent intent = getIntent();
-        user = intent.getStringExtra("user");
+        Intent passUser = getIntent();
+        user = passUser.getStringExtra("user");
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("รายการทั้งหมด");
+        toolbar.setTitle("รายการที่กำลังเคลื่อนย้าย");
         setSupportActionBar(toolbar);
 
         listview = findViewById(R.id.show);
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,list);
+        final ArrayAdapter<String> adapter=new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,listID);
         listview.setAdapter(adapter);
 
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String checkTranfer = dataSnapshot.child("transfer").getValue(String.class);
+                String t = "กำลังเคลื่อนย้าย";
+                if(checkTranfer != null && checkTranfer.equals(t)){
 
-                list.add(dataSnapshot.child("id").getValue(String.class));
-                allData.add((Map<String, Object>)dataSnapshot.getValue());
-                adapter.notifyDataSetChanged();
+//                    list.add(dataSnapshot.child("id").getValue(String.class) + " " + dataSnapshot.child("age").getValue(String.class) + " " + dataSnapshot.child("sex").getValue(String.class) + " " + dataSnapshot.child("disease").getValue(String.class));
+//                    allData.add((Map<String, Object>)dataSnapshot.getValue());
+                    listID.add(dataSnapshot.child("id").getValue(String.class));
+                    adapter.notifyDataSetChanged();
+                }
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                list.remove(dataSnapshot.child("id").getValue(String.class));
+                listID.remove(dataSnapshot.child("id").getValue(String.class));
                 adapter.notifyDataSetChanged();
             }
             @Override
@@ -86,32 +92,30 @@ public class ListActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         x2 = event.getX();
                         y2 = event.getY();
-                        if(x1 < x2 - 300){
-                           nextPage(MainActivity.class, user, " ");
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                        }else if(x1 > x2 +300){
-                            nextPage(AddActivity.class, user, " ");
+                        if(x1 > x2 + 300){
+                            nextPage(ListActivity.class, user, " ");
                         }
                         break;
                 }
                 return false;
             }
-
         });
 
-        showData();
 
+//
+        showData();
+//        this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
-        if (v.getId() == R.id.currentlist){
-            nextPage(MainActivity.class, user, " ");
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-        }else if (v.getId() == R.id.alllist){
-            nextPage(ListActivity.class, user, " ");
+        if (v.getId() == R.id.alllist){
+            nextPage(ListActivity.class, user," ");
+
         }else if (v.getId() == R.id.add){
-            nextPage(AddActivity.class, user, " ");
+            nextPage(AddActivity.class, user," ");
         }
+
         hideKeyboardInput(v);
     }
 
@@ -137,11 +141,22 @@ public class ListActivity extends AppCompatActivity {
 //                intent.putExtra("data" ,data);
 //                startActivity(intent);
 
-                nextPage(RecordActivity.class, user, data );
+
+//                Log.d("ggggggggg","id" + data);
+                nextPage(RecordActivity.class, user, data);
+//                Intent passID = new Intent(MainActivity.this, RecordActivity.class);
+//                passID.putExtra("id" ,data);
+//                startActivity(passID);
             }
 
         });
     }
+
+//    private void signOut() {
+//        mAuth.signOut();
+//        updateUI(null);
+//    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,15 +167,15 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch (item.getItemId()){
             case R.id.action_logout:
-                nextPage(LoginActivity.class, " ", " ");
+                nextPage(LoginActivity.class, " "," " );
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
 
+    }
 
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.nice.a491">
+    package="com.trackingTransfers.nice.a491">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -31,22 +31,23 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.trackingTransfers.nice.a491.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".AddActivity"></activity>
-        <activity android:name=".ListActivity"></activity>
-        <activity android:name=".RecordActivity"></activity>
-        <activity android:name=".InformationActivity"></activity>
-        <activity android:name=".StatusActivity"></activity>
-        <activity android:name=".ImageActivity"></activity>
+        <activity android:name="com.trackingTransfers.nice.a491.MainActivity"></activity>
+        <activity android:name="com.trackingTransfers.nice.a491.AddActivity"></activity>
+        <activity android:name="com.trackingTransfers.nice.a491.ListActivity"></activity>
+        <activity android:name="com.trackingTransfers.nice.a491.RecordActivity"></activity>
+        <activity android:name="com.trackingTransfers.nice.a491.InformationActivity"></activity>
+        <activity android:name="com.trackingTransfers.nice.a491.StatusActivity"></activity>
+        <activity android:name="com.trackingTransfers.nice.a491.ImageActivity"></activity>
+        <activity android:name="com.trackingTransfers.nice.a491.SendGps"></activity>
         <activity
-            android:name=".MapsActivity"
+            android:name="com.trackingTransfers.nice.a491.MapsActivity"
             android:label="@string/title_activity_maps">
 
         </activity>

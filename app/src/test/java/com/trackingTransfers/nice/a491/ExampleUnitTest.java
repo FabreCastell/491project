@@ -1,4 +1,4 @@
-package com.example.nice.a491;
+package com.trackingTransfers.nice.a491;
 
 import org.junit.Test;
 

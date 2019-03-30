@@ -129,7 +129,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:720098474654:android:14637af87efe1281",
         "android_client_info": {
-          "package_name": "com.example.nice.a491"
+          "package_name": "com.trackingTransfers.nice.a491"
         }
       },
       "oauth_client": [
@@ -137,7 +137,7 @@
           "client_id": "720098474654-l3hggr0f1u45j983sqton9unh0el3cgg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.nice.a491",
+            "package_name": "com.trackingTransfers.nice.a491",
             "certificate_hash": "0298ec78de24028a0f98a8fccf534a30e4f35692"
           }
         },
@@ -145,7 +145,7 @@
           "client_id": "720098474654-l1r3acpl44he9lcirkjfa6dntf4i7hc3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.nice.a491",
+            "package_name": "com.trackingTransfers.nice.a491",
             "certificate_hash": "1c358626116d40ad4fb843ca2071b273145c746b"
           }
         },
@@ -153,7 +153,7 @@
           "client_id": "720098474654-5jc751c6l92jfgssvd45spc3n9806p7k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.nice.a491",
+            "package_name": "com.trackingTransfers.nice.a491",
             "certificate_hash": "f7736819b2287dab669669bdfbc2154b51375007"
           }
         },
