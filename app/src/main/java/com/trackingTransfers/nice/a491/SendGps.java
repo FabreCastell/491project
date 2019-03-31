@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,6 +24,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
@@ -43,7 +46,8 @@ public class SendGps extends AppCompatActivity {
 
     private boolean isContinue = false;
     private boolean isGPS = false;
-
+    private double dblat = 0.0 , dblng = 0.0;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +59,12 @@ public class SendGps extends AppCompatActivity {
 
         this.txtContinueLocation = (TextView) findViewById(R.id.txtContinueLocation);
         this.btnContinueLocation = (Button) findViewById(R.id.btnContinueLocation);
-//        this.txtLocation = (TextView) findViewById(R.id.txtLocation);
-//        this.btnLocation = (Button) findViewById(R.id.btnLocation);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(10 * 1000); // 10 seconds
+        locationRequest.setInterval(5 * 1000); // 10 seconds
         locationRequest.setFastestInterval(5 * 1000); // 5 seconds
 
         new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
@@ -83,11 +85,22 @@ public class SendGps extends AppCompatActivity {
                     if (location != null) {
                         wayLatitude = location.getLatitude();
                         wayLongitude = location.getLongitude();
+                        dblat = wayLatitude;
+                        dblng = wayLongitude;
+                        Log.d("DBSentlat", "dblat : " + dblat);
+                        Log.d("DBSentlng", "dblng : " + dblng);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference mylat = database.getReference("List/"+id).child("lat");
+                     //   DatabaseReference mylat = database.getReference("testgps").child("lat");
+                        mylat.setValue(dblat);
+                        DatabaseReference mylng = database.getReference("List/"+id).child("lng");
+                     //   DatabaseReference mylng = database.getReference("testgps").child("lng");
+                        mylng.setValue(dblng);
                         if (!isContinue) {
                             txtLocation.setText(String.format(Locale.US, "%s - %s", wayLatitude, wayLongitude));
                         } else {
                             stringBuilder.append(wayLatitude);
-                            stringBuilder.append("-");
+                            stringBuilder.append(" and ");
                             stringBuilder.append(wayLongitude);
                             stringBuilder.append("\n\n");
                             txtContinueLocation.setText(stringBuilder.toString());
@@ -100,18 +113,21 @@ public class SendGps extends AppCompatActivity {
             }
         };
 
-//        btnLocation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (!isGPS) {
-//                    Toast.makeText(SendGps.this, "Please turn on GPS", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                isContinue = false;
-//                SendGps.this.getLocation();
-//            }
-//        });
+
+        btnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!isGPS) {
+                    Toast.makeText(SendGps.this, "Please turn on GPS", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                isContinue = false;
+              //  SendGps.this.getLocation();
+                mFusedLocationClient.removeLocationUpdates(locationCallback);
+                Log.d("DBSentstop" , " remove by button");
+            }
+        });
 
         btnContinueLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +141,21 @@ public class SendGps extends AppCompatActivity {
                 SendGps.this.getLocation();
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mFusedLocationClient.removeLocationUpdates(locationCallback);
+        Log.d("DBSentstop" , " remove by onpause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mFusedLocationClient.removeLocationUpdates(locationCallback);
+        Log.d("DBSentstop" , " remove by onstop");
     }
 
     private void getLocation() {

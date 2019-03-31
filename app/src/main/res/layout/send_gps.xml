@@ -46,9 +46,7 @@
             android:background="@color/colorPrimary"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="เริ่มส่งตำแหน่ง GPS"
-            android:textAllCaps="false"
-            android:textColor="#ffffff" />
+            android:text="เริ่มส่งตำแหน่ง GPS"/>
 
         <TextView
             android:id="@+id/txtContinueLocation"
@@ -76,10 +74,7 @@
             android:background="@color/colorPrimary"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="เคลื่อนย้ายเสร็จสิ้น"
-            android:textAllCaps="false"
-            android:textColor="#ffffff" />
-
+            android:text="เคลื่อนย้ายเสร็จสิ้น"/>
 
     </LinearLayout>
 
