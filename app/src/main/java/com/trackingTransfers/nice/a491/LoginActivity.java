@@ -183,10 +183,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 checkId = true;
                 String user = listId.get(i);
+                String newUser = convertID(user);
                 if(listPassword.get(i).equals(password)) {
                     checkPass = true;
 //                    checkHospital(user);
-                    nextPage(MainActivity.class, user);
+                    nextPage(UserTypeActivity.class, newUser);
                 }
             }
             i++;
@@ -196,6 +197,145 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+    }
+
+    public String convertID(String user){
+        String newUser = " ";
+        switch (user){
+            case "01":
+                newUser = "00";
+                break;
+            case "maharat":
+                newUser = "01";
+                break;
+            case "nakornpink":
+                newUser = "02";
+                break;
+            case "sarapee":
+                newUser = "03";
+                break;
+            case "sansai":
+                newUser = "04";
+                break;
+            case "sankampang":
+                newUser = "05";
+                break;
+            case "hangdong":
+                newUser = "06";
+                break;
+            case "doisaket":
+                newUser = "07";
+                break;
+            case "sanpatong":
+                newUser = "08";
+                break;
+            case "maeon":
+                newUser = "09";
+                break;
+            case "maewang":
+                newUser = "10";
+                break;
+            case "maetang":
+                newUser = "11";
+                break;
+            case "samoeng":
+                newUser = "12";
+                break;
+            case "jomthong":
+                newUser = "13";
+                break;
+            case "chiangdow":
+                newUser = "14";
+                break;
+            case "hod":
+                newUser = "15";
+                break;
+            case "phrao":
+                newUser = "16";
+                break;
+            case "doitao":
+                newUser = "17";
+                break;
+            case "chaiprakarn":
+                newUser = "18";
+                break;
+            case "wianghang":
+                newUser = "19";
+                break;
+            case "fang":
+                newUser = "20";
+                break;
+            case "dvnhos":
+                newUser = "21";
+                break;
+            case "maeai":
+                newUser = "22";
+                break;
+            case "omkoi":
+                newUser = "23";
+                break;
+            case "watchan":
+                newUser = "24";
+                break;
+            case "rajavej":
+                newUser = "25";
+                break;
+            case "klaimor":
+                newUser = "26";
+                break;
+            case "mccormick":
+                newUser = "27";
+                break;
+            case "centralmemorial":
+                newUser = "28";
+                break;
+            case "thchos":
+                newUser = "29";
+                break;
+            case "banthi":
+                newUser = "30";
+                break;
+            case "banhong":
+                newUser = "31";
+                break;
+            case "maetha":
+                newUser = "32";
+                break;
+            case "lamphun":
+                newUser = "33";
+                break;
+            case "lee":
+                newUser = "34";
+                break;
+            case "wnlhos":
+                newUser = "35";
+                break;
+            case "pasang":
+                newUser = "36";
+                break;
+            case "srisangwan":
+                newUser = "37";
+                break;
+            case "khunyuam":
+                newUser = "38";
+                break;
+            case "pai":
+                newUser = "39";
+                break;
+            case "maesariang":
+                newUser = "40";
+                break;
+            case "maelanoi":
+                newUser = "41";
+                break;
+            case "sobmoei":
+                newUser = "42";
+                break;
+            case "pangmapha":
+                newUser = "43";
+                break;
+        }
+        return newUser;
     }
 
 

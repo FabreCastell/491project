@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,7 +31,7 @@ public class ListActivity extends AppCompatActivity {
     private ArrayList<String> list=new ArrayList<>();
     private ArrayList<Map<String,Object>> allData=new ArrayList<>();
     float x1,x2,y1,y2;
-    private String user ;
+    private String user, state ;
     private Toolbar toolbar;
 
     @Override
@@ -40,6 +41,7 @@ public class ListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
+        state = intent.getStringExtra("state");
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("รายการทั้งหมด");
@@ -137,7 +139,16 @@ public class ListActivity extends AppCompatActivity {
 //                intent.putExtra("data" ,data);
 //                startActivity(intent);
 
-                nextPage(RecordActivity.class, user, data );
+                String state1 = "1";
+                String state2 = "2";
+
+                if (state.equals(state1)){
+                    nextPage(RecordActivity.class, user, data);
+                }else if(state.equals(state2)){
+                    nextPage(SendGps.class, user, data);
+                }else{
+                    Log.d("zzzzzz0", "status" + state);
+                }
             }
 
         });

@@ -38,6 +38,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.trackingTransfers.nice.a491.UserTypeActivity"></activity>
+        <activity android:name="com.trackingTransfers.nice.a491.TransferTypeActivity"></activity>
         <activity android:name="com.trackingTransfers.nice.a491.MainActivity"></activity>
         <activity android:name="com.trackingTransfers.nice.a491.AddActivity"></activity>
         <activity android:name="com.trackingTransfers.nice.a491.ListActivity"></activity>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity  {
 //    private ArrayList<Map<String,ArrayList<String>>> data =new ArrayList<>();
 //    private ArrayList<Map<String,Object>> allData=new ArrayList<>();
     float x1,x2,y1,y2;
-    private String user;
+    private String user , state;
     private Toolbar toolbar;
 
     @Override
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity  {
 
         Intent passUser = getIntent();
         user = passUser.getStringExtra("user");
+        state = passUser.getStringExtra("state");
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("รายการที่กำลังเคลื่อนย้าย");
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity  {
         Intent next = new Intent(this,page);
         next.putExtra("user", user);
         next.putExtra("id", id);
+        next.putExtra("state", state);
         startActivity(next);
     }
 
@@ -143,7 +146,17 @@ public class MainActivity extends AppCompatActivity  {
 
 
 //                Log.d("ggggggggg","id" + data);
-                nextPage(RecordActivity.class, user, data);
+                String state1 = "1";
+                String state2 = "2";
+
+                if (state.equals(state1)){
+                    nextPage(RecordActivity.class, user, data);
+                }else if(state.equals(state2)){
+                    nextPage(SendGps.class, user, data);
+                }else{
+                    Log.d("zzzzzz0", "status" + state);
+                }
+
 //                Intent passID = new Intent(MainActivity.this, RecordActivity.class);
 //                passID.putExtra("id" ,data);
 //                startActivity(passID);

@@ -76,6 +76,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         mapRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("zzzzzzzzzz", "user ::: "+ user);
                 Log.d("zzzzzzzzzzzzz" , "" + lat + " " +lng);
                 lat = dataSnapshot.child("lat").getValue(Double.class);
                 lng = dataSnapshot.child("long").getValue(Double.class);
@@ -214,7 +215,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             myRef.child("destination").setValue(" ");//5
         }
         id = formattedDate;
-        nextPage(InformationActivity.class, user, id);
+        nextPage(SendGps.class, user, id);
     }
 
     public boolean onTouchEvent(MotionEvent touchEvent){
