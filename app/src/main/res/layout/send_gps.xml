@@ -17,7 +17,7 @@
             android:background="@color/colorPrimary"
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
-            android:text="One time location"
+            android:text="Stop Tracking"
             android:textAllCaps="false"
             android:textColor="#ffffff" />
 
@@ -45,7 +45,7 @@
             android:background="@color/colorPrimary"
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
-            android:text="Continuous Location"
+            android:text="Start Tracking"
             android:textAllCaps="false"
             android:textColor="#ffffff" />
 
