@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -21,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ambulance_icon2" />
+                android:src="@drawable/addusericon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,12 +58,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ambulance_icon"/>
+                android:src="@drawable/updateicon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="อัปเดตรายการ"
+                android:text="อัปเดตรายการที่มีอยู่แล้ว"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:layout_gravity="center"/>

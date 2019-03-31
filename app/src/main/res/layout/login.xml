@@ -106,6 +106,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         app:layout_constraintVertical_chainStyle="spread_inside"
-        app:srcCompat="@drawable/ambulance_icon2" />
+        app:srcCompat="@drawable/iconplaystore" />
 
 </android.support.constraint.ConstraintLayout>

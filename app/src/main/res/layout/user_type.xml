@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -21,12 +23,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ambulance_icon2" />
+                android:src="@drawable/amicon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="เคลื่อนย้ายผู้ป่วย"
+                android:text="ติดตามตำแหน่งผู้ป่วย (สำหรับรถพยาบาล)"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:layout_gravity="center"/>
@@ -56,12 +58,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ambulance_icon"/>
+                android:src="@drawable/oblisticon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="รายการผู้ป่วย"
+                android:text="ดูรายการผู้ป่วย"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:layout_gravity="center"/>

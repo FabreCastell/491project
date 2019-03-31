@@ -113,7 +113,7 @@ public class SendGps extends AppCompatActivity {
             }
         };
 
-
+/*
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +128,7 @@ public class SendGps extends AppCompatActivity {
                 Log.d("DBSentstop" , " remove by button");
             }
         });
-
+*/
         btnContinueLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,6 +240,8 @@ public class SendGps extends AppCompatActivity {
 
     public void process(View v) {
         if (v.getId() == R.id.finish){
+            mFusedLocationClient.removeLocationUpdates(locationCallback);
+            Log.d("DBSentstop" , " remove by button");
             nextPage(MainActivity.class,user," ");
 //            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 //        }else if (v.getId() == R.id.alllist){
