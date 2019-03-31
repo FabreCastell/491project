@@ -3,6 +3,7 @@ package com.trackingTransfers.nice.a491;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,8 +55,8 @@ public class SendGps extends AppCompatActivity {
 
         this.txtContinueLocation = (TextView) findViewById(R.id.txtContinueLocation);
         this.btnContinueLocation = (Button) findViewById(R.id.btnContinueLocation);
-        this.txtLocation = (TextView) findViewById(R.id.txtLocation);
-        this.btnLocation = (Button) findViewById(R.id.btnLocation);
+//        this.txtLocation = (TextView) findViewById(R.id.txtLocation);
+//        this.btnLocation = (Button) findViewById(R.id.btnLocation);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -98,18 +100,18 @@ public class SendGps extends AppCompatActivity {
             }
         };
 
-        btnLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (!isGPS) {
-                    Toast.makeText(SendGps.this, "Please turn on GPS", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                isContinue = false;
-                SendGps.this.getLocation();
-            }
-        });
+//        btnLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (!isGPS) {
+//                    Toast.makeText(SendGps.this, "Please turn on GPS", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                isContinue = false;
+//                SendGps.this.getLocation();
+//            }
+//        });
 
         btnContinueLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,5 +205,35 @@ public class SendGps extends AppCompatActivity {
                 isGPS = true; // flag maintain before get location
             }
         }
+    }
+
+    public void process(View v) {
+        if (v.getId() == R.id.finish){
+            nextPage(MainActivity.class,user," ");
+//            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//        }else if (v.getId() == R.id.alllist){
+//            nextPage(ListActivity.class,user," ");
+//            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//        }else if (v.getId() == R.id.add){
+//            nextPage(AddActivity.class,user," ");
+//        }else if (v.getId() == R.id.submit){
+//            addData(agetv.getText().toString(), numbertv.getText().toString());
+//
+        }
+        hideKeyboardInput(v);
+    }
+
+    private void nextPage(Class page, String user, String id){
+        Intent next = new Intent(this,page);
+        next.putExtra("user", user);
+        next.putExtra("state","1");
+        next.putExtra("id", id);
+
+        startActivity(next);
+    }
+    // To hide Android soft keyboard
+    private void hideKeyboardInput(View v){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 }

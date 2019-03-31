@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity  {
 //                Log.d("ggggggggg","id" + data);
                 String state1 = "1";
                 String state2 = "2";
+                Log.d("zzzzzz0", "status" + state);
 
                 if (state.equals(state1)){
                     nextPage(RecordActivity.class, user, data);

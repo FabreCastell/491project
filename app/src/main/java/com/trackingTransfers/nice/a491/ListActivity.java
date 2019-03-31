@@ -121,6 +121,7 @@ public class ListActivity extends AppCompatActivity {
         Intent next = new Intent(this,page);
         next.putExtra("user", user);
         next.putExtra("id", id);
+        next.putExtra("state", state);
         startActivity(next);
     }
 
@@ -141,13 +142,14 @@ public class ListActivity extends AppCompatActivity {
 
                 String state1 = "1";
                 String state2 = "2";
+                Log.d("zzzzzz0", "status" + state);
 
                 if (state.equals(state1)){
                     nextPage(RecordActivity.class, user, data);
                 }else if(state.equals(state2)){
                     nextPage(SendGps.class, user, data);
                 }else{
-                    Log.d("zzzzzz0", "status" + state);
+                    Log.d("zzzzzz0", "state" + state);
                 }
             }
 

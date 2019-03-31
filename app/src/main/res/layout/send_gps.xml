@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnLocation"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/colorPrimary"-->
+            <!--android:paddingEnd="16dp"-->
+            <!--android:paddingStart="16dp"-->
+            <!--android:text="One time location"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="#ffffff" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/txtLocation"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="8dp"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="#000" />-->
+
+    <!--</LinearLayout>-->
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btnLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:text="One time location"
-            android:textAllCaps="false"
-            android:textColor="#ffffff" />
-
-        <TextView
-            android:id="@+id/txtLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:textColor="#000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
         <Button
             android:id="@+id/btnContinueLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:paddingEnd="16dp"
             android:paddingStart="16dp"
-            android:text="Continuous Location"
+            android:paddingEnd="16dp"
+            android:text="เริ่มส่งตำแหน่ง GPS"
             android:textAllCaps="false"
             android:textColor="#ffffff" />
 
@@ -57,6 +58,28 @@
             android:layout_marginStart="16dp"
             android:gravity="center"
             android:textColor="#000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+
+        <Button
+            android:id="@+id/finish"
+            android:onClick="process"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="เคลื่อนย้ายเสร็จสิ้น"
+            android:textAllCaps="false"
+            android:textColor="#ffffff" />
+
 
     </LinearLayout>
 

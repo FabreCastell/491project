@@ -60,13 +60,15 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_page);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
-        mDataImageRef = FirebaseDatabase.getInstance().getReference("uploads");
-
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
         id = intent.getStringExtra("id");
+
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+        mDataImageRef = FirebaseDatabase.getInstance().getReference("uploads").child(id);
+
+
 
         toolbar = findViewById(R.id.include);
         toolbar.setTitle("รูปภาพ " + id);
@@ -210,7 +212,7 @@ public class ImageActivity extends AppCompatActivity {
                             upload upload = new upload(" ", downloadUrl);
 
                             String uploadID = mDatabaseRef.push().getKey();
-                            mDatabaseRef.child(id).setValue(upload);
+                            mDatabaseRef.child(id).child("image").setValue(upload);
 
                         }
                     });

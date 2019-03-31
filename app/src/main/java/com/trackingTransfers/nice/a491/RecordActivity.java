@@ -137,6 +137,7 @@ public class RecordActivity extends AppCompatActivity {
         Intent next = new Intent(this,page);
         next.putExtra("user", user);
         next.putExtra("id", id);
+        next.putExtra("state", "1");
         startActivity(next);
     }
     private void nextPagemap(Class page, String user, String id){
@@ -154,6 +155,7 @@ public class RecordActivity extends AppCompatActivity {
         next.putExtra("lat", lat);
         next.putExtra("lng", lng);
         Log.d("zzzzzzzzzzzzz" , "3 " + lat + " " +lng);
+        next.putExtra("state", "1");
         startActivity(next);
     }
     // To hide Android soft keyboard

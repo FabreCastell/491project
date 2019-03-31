@@ -113,7 +113,9 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     private void nextPage(Class page, String user, String id){
         Intent next = new Intent(this,page);
         next.putExtra("user", user);
+        next.putExtra("state","1");
         next.putExtra("id", id);
+
         startActivity(next);
     }
     // To hide Android soft keyboard
@@ -228,9 +230,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 x2 = touchEvent.getX();
                 y2 = touchEvent.getY();
                 if(x1 < x2 - 300){
-                    Intent i = new Intent(this, ListActivity.class);
-                    i.putExtra("user", user);
-                    startActivity(i);
+                    nextPage(ListActivity.class,user," ");
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 }
                 break;
