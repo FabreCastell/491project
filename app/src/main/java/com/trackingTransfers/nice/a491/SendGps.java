@@ -3,6 +3,7 @@ package com.trackingTransfers.nice.a491;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,9 +38,9 @@ public class SendGps extends AppCompatActivity {
     private double wayLatitude = 0.0, wayLongitude = 0.0;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
-    private android.widget.Button btnLocation;
+    private android.widget.Button btnLocation, stopButton;
     private TextView txtLocation;
-    private android.widget.Button btnContinueLocation;
+    private android.widget.ImageButton btnContinueLocation;
     private TextView txtContinueLocation;
     private StringBuilder stringBuilder;
     private String user, id;
@@ -57,8 +58,11 @@ public class SendGps extends AppCompatActivity {
         user = passID.getStringExtra("user");
         id = passID.getStringExtra("id");
 
-        this.txtContinueLocation = (TextView) findViewById(R.id.txtContinueLocation);
-        this.btnContinueLocation = (Button) findViewById(R.id.btnContinueLocation);
+
+        //this.txtContinueLocation = (TextView) findViewById(R.id.txtContinueLocation);
+        this.btnContinueLocation =  findViewById(R.id.btnContinueLocation);
+        stopButton = findViewById(R.id.stop);
+        stopButton.setVisibility(View.GONE);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -103,7 +107,7 @@ public class SendGps extends AppCompatActivity {
                             stringBuilder.append(" and ");
                             stringBuilder.append(wayLongitude);
                             stringBuilder.append("\n\n");
-                            txtContinueLocation.setText(stringBuilder.toString());
+//                            txtContinueLocation.setText(stringBuilder.toString());
                         }
                         if (!isContinue && mFusedLocationClient != null) {
                             mFusedLocationClient.removeLocationUpdates(locationCallback);
@@ -136,6 +140,8 @@ public class SendGps extends AppCompatActivity {
                     Toast.makeText(SendGps.this, "Please turn on GPS", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                stopButton.setVisibility(View.VISIBLE);
+                toastMessage("Start Tracking");
                 isContinue = true;
                 stringBuilder = new StringBuilder();
                 SendGps.this.getLocation();
@@ -242,10 +248,17 @@ public class SendGps extends AppCompatActivity {
         if (v.getId() == R.id.finish){
             mFusedLocationClient.removeLocationUpdates(locationCallback);
             Log.d("DBSentstop" , " remove by button");
+            changeState();
             nextPage(MainActivity.class,user," ");
 //            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-//        }else if (v.getId() == R.id.alllist){
-//            nextPage(ListActivity.class,user," ");
+        }else if (v.getId() == R.id.stop) {
+            mFusedLocationClient.removeLocationUpdates(locationCallback);
+            toastMessage("Stop Tracking");
+            stopButton.setVisibility(View.GONE);
+
+
+
+
 //            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 //        }else if (v.getId() == R.id.add){
 //            nextPage(AddActivity.class,user," ");
@@ -269,4 +282,14 @@ public class SendGps extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void changeState() {
+        DatabaseReference myRef = database.getReference("List/" + id);
+        myRef.child("transfer").setValue("ถึงโรงพยาบาลปลายทางแล้ว");
+    }
+
 }

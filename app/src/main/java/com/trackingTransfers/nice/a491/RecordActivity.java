@@ -116,9 +116,7 @@ public class RecordActivity extends AppCompatActivity {
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
-        if (v.getId() == R.id.back){
-            nextPage(ListActivity.class, user, " ");
-        }else if (v.getId() == R.id.info){
+        if (v.getId() == R.id.info){
             nextPage(InformationActivity.class, user, id);
         }else if (v.getId() == R.id.map) {
             nextPage(SendGps.class, user, id);
@@ -194,11 +192,148 @@ public class RecordActivity extends AppCompatActivity {
         formattedDate = df.format(c);
 
         DatabaseReference myRef = database.getReference("List/" + id).child("comment");
-        myRef.child(formattedDate).setValue(commet); //1
+        Log.d("zzzzzz12","id" + id + "con " + convertID(id) );
+        myRef.child(formattedDate).setValue(convertID(user) + ": " +commet); //1
 
         finish();
         startActivity(getIntent());
 
+    }
+
+    public String convertID(String user){
+        String newUser = " ";
+        switch (user){
+            case "01":
+                newUser = "maharat";
+                break;
+            case "02":
+                newUser = "nakornpink";
+                break;
+            case "03":
+                newUser = "sarapee";
+                break;
+            case "04":
+                newUser = "sansai";
+                break;
+            case "05":
+                newUser = "sankampang";
+                break;
+            case "06":
+                newUser = "hangdong";
+                break;
+            case "07":
+                newUser = "doisaket";
+                break;
+            case "08":
+                newUser = "sanpatong";
+                break;
+            case "09":
+                newUser = "maeon";
+                break;
+            case "10":
+                newUser = "maewang";
+                break;
+            case "11":
+                newUser = "maetang";
+                break;
+            case "12":
+                newUser = "samoeng";
+                break;
+            case "13":
+                newUser = "jomthong";
+                break;
+            case "14":
+                newUser = "chiangdow";
+                break;
+            case "15":
+                newUser = "hod";
+                break;
+            case "16":
+                newUser = "phrao";
+                break;
+            case "17":
+                newUser = "doitao";
+                break;
+            case "18":
+                newUser = "chaiprakarn";
+                break;
+            case "19":
+                newUser = "wianghang";
+                break;
+            case "20":
+                newUser = "fang";
+                break;
+            case "21":
+                newUser = "dvnhos";
+                break;
+            case "22":
+                newUser = "maeai";
+                break;
+            case "23":
+                newUser = "omkoi";
+                break;
+            case "24":
+                newUser = "watchan";
+                break;
+            case "25":
+                newUser = "rajavej";
+                break;
+            case "26":
+                newUser = "klaimor";
+                break;
+            case "27":
+                newUser = "mccormick";
+                break;
+            case "28":
+                newUser = "centralmemorial";
+                break;
+            case "29":
+                newUser = "thchos";
+                break;
+            case "30":
+                newUser = "banthi";
+                break;
+            case "31":
+                newUser = "banhong";
+                break;
+            case "32":
+                newUser = "maetha";
+                break;
+            case "33":
+                newUser = "lamphun";
+                break;
+            case "34":
+                newUser = "lee";
+                break;
+            case "35":
+                newUser = "wnlhos";
+                break;
+            case "36":
+                newUser = "pasang";
+                break;
+            case "37":
+                newUser = "srisangwan";
+                break;
+            case "38":
+                newUser = "khunyuam";
+                break;
+            case "39":
+                newUser = "pai";
+                break;
+            case "40":
+                newUser = "maesariang";
+                break;
+            case "41":
+                newUser = "maelanoi";
+                break;
+            case "42":
+                newUser = "sobmoei";
+                break;
+            case "43":
+                newUser = "pangmapha";
+                break;
+        }
+        return newUser;
     }
 
 }

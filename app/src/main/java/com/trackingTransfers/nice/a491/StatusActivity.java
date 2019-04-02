@@ -83,9 +83,7 @@ public class StatusActivity extends AppCompatActivity implements AdapterView.OnI
 
     // This "process" method MUST be bound in the layout XML file, "android:onClick="process""
     public void process(View v) {
-        if (v.getId() == R.id.back){
-            nextPage(RecordActivity.class, user, id);
-        }else if (v.getId() == R.id.submit){
+        if (v.getId() == R.id.submit){
             changeStatus();
         }
         hideKeyboardInput(v);
