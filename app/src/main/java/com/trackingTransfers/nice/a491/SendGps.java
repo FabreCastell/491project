@@ -59,7 +59,7 @@ public class SendGps extends AppCompatActivity {
         id = passID.getStringExtra("id");
 
 
-        //this.txtContinueLocation = (TextView) findViewById(R.id.txtContinueLocation);
+        this.txtContinueLocation = (TextView) findViewById(R.id.txtContinueLocation);
         this.btnContinueLocation =  findViewById(R.id.btnContinueLocation);
         stopButton = findViewById(R.id.stop);
         stopButton.setVisibility(View.GONE);
@@ -94,20 +94,22 @@ public class SendGps extends AppCompatActivity {
                         Log.d("DBSentlat", "dblat : " + dblat);
                         Log.d("DBSentlng", "dblng : " + dblng);
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference mylat = database.getReference("List/"+id).child("lat");
-                     //   DatabaseReference mylat = database.getReference("testgps").child("lat");
+
+                          DatabaseReference mylat = database.getReference("List/"+id).child("lat");
+                      //  DatabaseReference mylat = database.getReference("testgps").child("lat");
                         mylat.setValue(dblat);
                         DatabaseReference mylng = database.getReference("List/"+id).child("lng");
-                     //   DatabaseReference mylng = database.getReference("testgps").child("lng");
+                      //  DatabaseReference mylng = database.getReference("testgps").child("lng");
                         mylng.setValue(dblng);
                         if (!isContinue) {
                             txtLocation.setText(String.format(Locale.US, "%s - %s", wayLatitude, wayLongitude));
                         } else {
+                            Log.d("DBSentlat", "function reached : ");
                             stringBuilder.append(wayLatitude);
                             stringBuilder.append(" and ");
                             stringBuilder.append(wayLongitude);
                             stringBuilder.append("\n\n");
-//                            txtContinueLocation.setText(stringBuilder.toString());
+                            txtContinueLocation.setText(stringBuilder.toString());
                         }
                         if (!isContinue && mFusedLocationClient != null) {
                             mFusedLocationClient.removeLocationUpdates(locationCallback);
@@ -246,12 +248,14 @@ public class SendGps extends AppCompatActivity {
 
     public void process(View v) {
         if (v.getId() == R.id.finish){
+            isContinue = false;
             mFusedLocationClient.removeLocationUpdates(locationCallback);
             Log.d("DBSentstop" , " remove by button");
             changeState();
             nextPage(MainActivity.class,user," ");
 //            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }else if (v.getId() == R.id.stop) {
+            isContinue = false;
             mFusedLocationClient.removeLocationUpdates(locationCallback);
             toastMessage("Stop Tracking");
             stopButton.setVisibility(View.GONE);

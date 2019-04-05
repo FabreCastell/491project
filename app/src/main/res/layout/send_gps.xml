@@ -58,14 +58,7 @@
                 android:background="@null"
                 android:text="เริ่มส่งตำแหน่ง GPS" />
 
-            <!--<TextView-->
-            <!--android:id="@+id/txtContinueLocation"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="8dp"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:gravity="center"-->
-            <!--android:textColor="#000" />-->
+
 
             <Button
                 android:layout_marginTop="10dp"
@@ -88,7 +81,15 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="เคลื่อนย้ายเสร็จสิ้น" />
-
+            <TextView
+                android:id="@+id/txtContinueLocation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:visibility="invisible" />
         </LinearLayout>
 
 
