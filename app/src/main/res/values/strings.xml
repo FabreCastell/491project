@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Tracking Transfer BETA</string>
     <string name="title_activity_maps">Map</string>
-
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAok3v2lSle49WtNb445yytE6qD4h3_Hhc
+</string>
     <string name="title_group">Choose a group</string>
     <string name="title_hospital">Choose a hospital</string>
 
