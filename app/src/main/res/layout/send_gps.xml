@@ -36,61 +36,79 @@
     <!--</LinearLayout>-->
 
 
-        <LinearLayout
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnContinueLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="50dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/btnContinueLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/trackbutton"
-                android:background="@null"
-                android:text="เริ่มส่งตำแหน่ง GPS" />
+            android:layout_gravity="center"
+            android:background="@null"
+            android:src="@drawable/trackbutton"
+            android:text="เริ่มส่งตำแหน่ง GPS" />
 
 
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:onClick="process"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="หยุดส่ง gps" />
 
-            <Button
-                android:layout_marginTop="10dp"
-                android:id="@+id/stop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:onClick="process"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="หยุดส่ง gps" />
+        <Button
+            android:id="@+id/finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:onClick="process"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="เคลื่อนย้ายเสร็จสิ้น" />
 
-            <Button
-                android:layout_marginTop="10dp"
-                android:id="@+id/finish"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:onClick="process"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="เคลื่อนย้ายเสร็จสิ้น" />
-            <TextView
-                android:id="@+id/txtContinueLocation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:layout_marginStart="16dp"
-                android:gravity="center"
-                android:textColor="#000"
-                android:visibility="invisible" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/txtContinueLocation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:visibility="invisible" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:text="*หมายเหตุ: ห้ามปิดหน้าจอหรือให้หน้าจอดับเปลี่ยนหน้าหรือสลับแอป มิเช่นนั้นจะต้องทำการกด start track อีกครั้ง"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
 
 
