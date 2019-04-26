@@ -12,18 +12,20 @@
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/ambu"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:onClick="process">
+            >
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/ambu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/amicon" />
+                android:src="@drawable/amicon"
+                android:onClick="process"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -46,21 +48,23 @@
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/hos"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:onClick="process"
             >
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/hos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/oblisticon" />
+                android:src="@drawable/oblisticon"
+                android:onClick="process"/>
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ดูรายการผู้ป่วย"

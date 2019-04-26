@@ -7,7 +7,7 @@ android {
         applicationId "com.trackingTransfers.nice.a491"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 7
+        versionCode 9
         versionName "2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -35,6 +35,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "com.android.support:support-compat:28.0.0"
 }
 
 // ADD THIS AT THE BOTTOM

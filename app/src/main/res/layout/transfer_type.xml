@@ -12,18 +12,20 @@
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/addNew"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:onClick="process">
+            >
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/addNew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/addusericon" />
+                android:src="@drawable/addusericon"
+                android:onClick="process"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -46,19 +48,20 @@
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/update"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:onClick="process"
             >
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/updateicon" />
+                android:src="@drawable/updateicon"
+                android:onClick="process"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,7 +69,8 @@
                 android:text="อัปเดตรายการที่มีอยู่แล้ว"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                />
 
         </LinearLayout>
 

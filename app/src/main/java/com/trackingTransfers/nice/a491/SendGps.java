@@ -3,6 +3,8 @@ package com.trackingTransfers.nice.a491;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -142,8 +145,21 @@ public class SendGps extends AppCompatActivity {
                     Toast.makeText(SendGps.this, "Please turn on GPS", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                int notificationId = 0;
+                String contentTitle = "กำลังส่ง GPS";
+                String contentText = "กำลังส่ง GPS นะอิอิ";
+                NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification notification = new NotificationCompat.Builder(SendGps.this)
+                        .setSmallIcon(R.mipmap.ic_launcher_round)
+                        .setContentTitle(contentTitle)
+                        .setContentText(contentText)
+                        .build();
+                manager.notify(notificationId, notification);
+
                 stopButton.setVisibility(View.VISIBLE);
                 toastMessage("Start Tracking");
+
                 isContinue = true;
                 stringBuilder = new StringBuilder();
                 SendGps.this.getLocation();

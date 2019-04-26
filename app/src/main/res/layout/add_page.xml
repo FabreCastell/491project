@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="85dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="92dp"
+            android:layout_marginEnd="190dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -147,14 +147,14 @@
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:text="เลขกำกับโรค"
-                android:textSize="17dp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+            <!--android:id="@+id/number"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="40dp"-->
+            <!--android:text="เลขกำกับโรค"-->
+            <!--android:textSize="17dp"-->
+            <!--android:textStyle="bold" />-->
 
         </LinearLayout>
 
@@ -177,15 +177,15 @@
                 android:prompt="@string/title_group" />
 
 
-            <EditText
-                android:id="@+id/numberEdit"
-                android:layout_width="63dp"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:ems="10"
-                android:inputType="number" />
+            <!--<EditText-->
+                <!--android:id="@+id/numberEdit"-->
+                <!--android:layout_width="63dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:ems="10"-->
+                <!--android:inputType="number" />-->
 
         </LinearLayout>
 
