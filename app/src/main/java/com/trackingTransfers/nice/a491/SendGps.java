@@ -166,6 +166,8 @@ public class SendGps extends AppCompatActivity {
 
         mFusedLocationClient.removeLocationUpdates(locationCallback);
         Log.d("DBSentstop" , " remove by onpause");
+        notiManager.cancelAll();
+        stopButton.setVisibility(View.GONE);
     }
 
     @Override
@@ -173,6 +175,7 @@ public class SendGps extends AppCompatActivity {
         super.onStop();
         mFusedLocationClient.removeLocationUpdates(locationCallback);
         Log.d("DBSentstop" , " remove by onstop");
+        notiManager.cancelAll();
     }
 
     private void getLocation() {
@@ -268,6 +271,7 @@ public class SendGps extends AppCompatActivity {
             mFusedLocationClient.removeLocationUpdates(locationCallback);
             toastMessage("Stop Tracking");
             stopButton.setVisibility(View.GONE);
+            notiManager.cancelAll();
 
 
 
