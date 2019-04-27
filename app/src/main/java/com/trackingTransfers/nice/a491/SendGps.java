@@ -9,11 +9,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
+import static com.trackingTransfers.nice.a491.App.CHANNEL_1_ID;
+
 
 public class SendGps extends AppCompatActivity {
 
@@ -47,6 +51,7 @@ public class SendGps extends AppCompatActivity {
     private TextView txtContinueLocation;
     private StringBuilder stringBuilder;
     private String user, id;
+    private NotificationManagerCompat notiManager;
 
     private boolean isContinue = false;
     private boolean isGPS = false;
@@ -61,7 +66,7 @@ public class SendGps extends AppCompatActivity {
         user = passID.getStringExtra("user");
         id = passID.getStringExtra("id");
 
-
+        notiManager = NotificationManagerCompat.from(this);
         this.txtContinueLocation = (TextView) findViewById(R.id.txtContinueLocation);
         this.btnContinueLocation =  findViewById(R.id.btnContinueLocation);
         stopButton = findViewById(R.id.stop);
@@ -145,21 +150,9 @@ public class SendGps extends AppCompatActivity {
                     Toast.makeText(SendGps.this, "Please turn on GPS", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                int notificationId = 0;
-                String contentTitle = "กำลังส่ง GPS";
-                String contentText = "กำลังส่ง GPS นะอิอิ";
-                NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification notification = new NotificationCompat.Builder(SendGps.this)
-                        .setSmallIcon(R.mipmap.ic_launcher_round)
-                        .setContentTitle(contentTitle)
-                        .setContentText(contentText)
-                        .build();
-                manager.notify(notificationId, notification);
-
                 stopButton.setVisibility(View.VISIBLE);
                 toastMessage("Start Tracking");
-
+                notificationCall();
                 isContinue = true;
                 stringBuilder = new StringBuilder();
                 SendGps.this.getLocation();
@@ -310,6 +303,18 @@ public class SendGps extends AppCompatActivity {
     public void changeState() {
         DatabaseReference myRef = database.getReference("List/" + id);
         myRef.child("transfer").setValue("ถึงโรงพยาบาลปลายทางแล้ว");
+    }
+
+
+    public void notificationCall(){
+        Notification notification = new NotificationCompat.Builder(this , CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ambu2)
+                .setContentTitle("กำลังส่ง GPS")
+                .setContentText("eieei")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+        notiManager.notify(1,notification);
     }
 
 }

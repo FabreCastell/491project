@@ -58,7 +58,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         Spinner hospital = findViewById(R.id.desSpinner);
         Spinner disease = findViewById(R.id.disSpinner);
         agetv = findViewById(R.id.ageEdit);
-        numbertv = findViewById(R.id.numberEdit);
+//        numbertv = findViewById(R.id.numberEdit);
 
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
