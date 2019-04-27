@@ -54,6 +54,8 @@ public class SendGps extends AppCompatActivity {
     private String user, id;
     private NotificationManagerCompat notiManager;
 
+    private int restarttrack = 0;
+
     private boolean isContinue = false;
     private boolean isGPS = false;
     private double dblat = 0.0 , dblng = 0.0;
@@ -170,6 +172,8 @@ public class SendGps extends AppCompatActivity {
         Log.d("DBSentstop" , " remove by onpause");
         notiManager.cancelAll();
         stopButton.setVisibility(View.GONE);
+        restarttrack = 0;
+
     }
 
     @Override
@@ -178,8 +182,53 @@ public class SendGps extends AppCompatActivity {
         mFusedLocationClient.removeLocationUpdates(locationCallback);
         Log.d("DBSentstop" , " remove by onstop");
         notiManager.cancelAll();
+        restarttrack = 0;
+
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFusedLocationClient.removeLocationUpdates(locationCallback);
+        Log.d("DBSentstop" , " remove by onDestroy");
+        notiManager.cancelAll();
+        restarttrack = 0;
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("DBSentstop" , " remove by onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("DBSentstop" , " remove by onResume");
+        if( restarttrack == 0){
+            Log.d("DBSentstop" , " restarttrack = 0");
+
+        }
+        else{
+            Log.d("DBSentstop" , " restarttrack = 1");
+            btnContinueLocation.performClick();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("DBSentstop" , " remove by onRestart");
+        testAutotrack();
+    }
+
+    private void testAutotrack(){
+
+        Log.d("DBSentstop" , " tracking restart");
+        restarttrack = 1;
+
+    }
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(SendGps.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(SendGps.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
