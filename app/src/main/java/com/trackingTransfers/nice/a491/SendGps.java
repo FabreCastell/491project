@@ -107,7 +107,7 @@ public class SendGps extends AppCompatActivity {
                         wayLongitude = location.getLongitude();
                         dblat = wayLatitude;
                         dblng = wayLongitude;
-                        showgps.setText(String.valueOf("GPS ตอนนี้" +wayLatitude + " " +wayLongitude ));
+                        showgps.setText(String.valueOf("GPS ตอนนี้ : Lat " +wayLatitude + " Lng " +wayLongitude ));
 
                         Log.d("DBSentlat", "dblat : " + dblat);
                         Log.d("DBSentlng", "dblng : " + dblng);
@@ -374,7 +374,7 @@ public class SendGps extends AppCompatActivity {
         Notification notification = new NotificationCompat.Builder(this , CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ambu2)
                 .setContentTitle("กำลังส่ง GPS")
-                .setContentText("ขณะนี้กำลัง GPS อยู่")
+                .setContentText("ขณะนี้กำลังส่ง GPS อยู่")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();
