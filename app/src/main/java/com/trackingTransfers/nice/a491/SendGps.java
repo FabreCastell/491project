@@ -53,6 +53,7 @@ public class SendGps extends AppCompatActivity {
     private StringBuilder stringBuilder;
     private String user, id;
     private NotificationManagerCompat notiManager;
+    private TextView showgps;
 
     private int restarttrack = 0;
 
@@ -65,6 +66,9 @@ public class SendGps extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_gps);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        showgps = findViewById(R.id.showgps);
+        showgps.setVisibility(View.GONE);
 
         Intent passID = getIntent();
         user = passID.getStringExtra("user");
@@ -103,6 +107,8 @@ public class SendGps extends AppCompatActivity {
                         wayLongitude = location.getLongitude();
                         dblat = wayLatitude;
                         dblng = wayLongitude;
+                        showgps.setText(String.valueOf("GPS ตอนนี้" +wayLatitude + " " +wayLongitude ));
+
                         Log.d("DBSentlat", "dblat : " + dblat);
                         Log.d("DBSentlng", "dblng : " + dblng);
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -155,6 +161,7 @@ public class SendGps extends AppCompatActivity {
                     return;
                 }
                 stopButton.setVisibility(View.VISIBLE);
+                showgps.setVisibility(View.VISIBLE);
                 toastMessage("Start Tracking");
                 notificationCall();
                 isContinue = true;
@@ -172,6 +179,7 @@ public class SendGps extends AppCompatActivity {
         Log.d("DBSentstop" , " remove by onpause");
         notiManager.cancelAll();
         stopButton.setVisibility(View.GONE);
+        showgps.setVisibility(View.GONE);
         restarttrack = 0;
 
     }
@@ -322,6 +330,7 @@ public class SendGps extends AppCompatActivity {
             mFusedLocationClient.removeLocationUpdates(locationCallback);
             toastMessage("Stop Tracking");
             stopButton.setVisibility(View.GONE);
+            showgps.setVisibility(View.GONE);
             notiManager.cancelAll();
 
 
@@ -365,7 +374,7 @@ public class SendGps extends AppCompatActivity {
         Notification notification = new NotificationCompat.Builder(this , CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ambu2)
                 .setContentTitle("กำลังส่ง GPS")
-                .setContentText("eieei")
+                .setContentText("ขณะนี้กำลัง GPS อยู่")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();

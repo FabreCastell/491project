@@ -104,7 +104,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         }else if (v.getId() == R.id.add){
             nextPage(AddActivity.class,user," ");
         }else if (v.getId() == R.id.submit){
-            addData(agetv.getText().toString(), numbertv.getText().toString());
+            addData(agetv.getText().toString());
 
         }
         hideKeyboardInput(v);
@@ -175,7 +175,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         Toast.makeText(this, "กรุณาเลือก", Toast.LENGTH_LONG).show();
     }
 
-    private void addData(String agetv, String numbertv){
+    private void addData(String agetv){
         if(TextUtils.isEmpty(agetv)){
             Toast.makeText(AddActivity.this, "กรุณาใส่อายุ",Toast.LENGTH_SHORT).show();
             return;
@@ -198,16 +198,16 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
         Log.d("zzzzzzzzzzzzz" , "3 " + lat + " " +lng);
 
-        if(disease.equals("nsteacs")){
-            if(TextUtils.isEmpty(numbertv)){
-                Toast.makeText(AddActivity.this, "กรุณาใส่เลขกำกับโรค",Toast.LENGTH_SHORT).show();
-                myRef.removeValue();
-                return;
-            }
-            myRef.child("numberDisease").setValue(numbertv); //4
-        }else{
-            myRef.child("numberDisease").setValue(" "); //4
-        }
+//        if(disease.equals("nsteacs")){
+//            if(TextUtils.isEmpty(numbertv)){
+//                Toast.makeText(AddActivity.this, "กรุณาใส่เลขกำกับโรค",Toast.LENGTH_SHORT).show();
+//                myRef.removeValue();
+//                return;
+//            }
+//            myRef.child("numberDisease").setValue(numbertv); //4
+//        }else{
+//            myRef.child("numberDisease").setValue(" "); //4
+//        }
 
         if(status.equals("ส่งต่อไปโรงพยาบาลอื่น")){
             myRef.child("transfer").setValue("กำลังเคลื่อนย้าย");

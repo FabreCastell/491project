@@ -86,7 +86,7 @@ public class InformationActivity extends AppCompatActivity {
                 String sex = dataSnapshot.child("sex").getValue(String.class);
                 status = dataSnapshot.child("status").getValue(String.class);
                 transfer = dataSnapshot.child("transfer").getValue(String.class);
-                String number = dataSnapshot.child("numberDisease").getValue(String.class);
+//                String number = dataSnapshot.child("numberDisease").getValue(String.class);
 
                 TextView idtv = findViewById(R.id.textViewDate);
                 TextView hospitalidtv = findViewById(R.id.textViewHopital);
@@ -103,7 +103,7 @@ public class InformationActivity extends AppCompatActivity {
                 sextv.setText("เพศ: " + sex);
                 statustv.setText("สถานะ: " + status);
                 desidtv.setText("โรงพยาบาลปลายทาง: " + desid);
-                diseasetv.setText("กลุ่มโรคหัวใจ: " + disease + " " + number);
+                diseasetv.setText("กลุ่มโรคหัวใจ: " + disease + " " );
                 transfertv.setText("สถานะการเคลื่อนย้าย: " + transfer);
 
             }

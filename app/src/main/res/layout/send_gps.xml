@@ -36,6 +36,27 @@
             <!--android:textColor="#000" />-->
 
     <!--</LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/showgps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
 
 
     <LinearLayout
@@ -93,7 +114,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:gravity="center"
-        android:text="*หมายเหตุ: ห้ามปิดหน้าจอหรือให้หน้าจอดับเปลี่ยนหน้าหรือสลับแอป มิเช่นนั้นจะต้องทำการกด start track อีกครั้ง"
+        android:text="*หมายเหตุ: แอปยังส่งตำแหน่งได้อย่างถูกต้องจะมีไอคอนด้านบนซ้าย หากไม่ ให้กด start track อีกครั้ง"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         android:textStyle="bold"
