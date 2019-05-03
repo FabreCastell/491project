@@ -66,7 +66,7 @@ public class ImageActivity extends AppCompatActivity {
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
-        mDataImageRef = FirebaseDatabase.getInstance().getReference("uploads").child(id);
+        mDataImageRef = FirebaseDatabase.getInstance().getReference("uploads").child(id).child("image");
 
 
 
@@ -210,7 +210,7 @@ public class ImageActivity extends AppCompatActivity {
                             upload upload = new upload(" ", downloadUrl);
 
                             String uploadID = mDatabaseRef.push().getKey();
-                            mDatabaseRef.child(id).child("image").setValue(upload);
+                            mDatabaseRef.child(id).child("image").push().setValue(upload);
 
                         }
                     });
