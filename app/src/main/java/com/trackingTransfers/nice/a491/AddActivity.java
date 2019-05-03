@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -208,16 +209,18 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 //        }else{
 //            myRef.child("numberDisease").setValue(" "); //4
 //        }
+        id = formattedDate;
 
         if(status.equals("ส่งต่อไปโรงพยาบาลอื่น")){
             myRef.child("transfer").setValue("กำลังเคลื่อนย้าย");
             myRef.child("destination").setValue(hospital);//5
+            nextPage(SendGps.class, user, id);
         }else{
             myRef.child("transfer").setValue(" ");
             myRef.child("destination").setValue(" ");//5
+            nextPage(ListActivity.class, user, id);
         }
-        id = formattedDate;
-        nextPage(SendGps.class, user, id);
+        nextPage(ListActivity.class, user, id);
     }
 
     public boolean onTouchEvent(MotionEvent touchEvent){

@@ -62,7 +62,7 @@ public class StatusActivity extends AppCompatActivity implements AdapterView.OnI
                 break;
             case R.id.bp:
                 if (checked)
-                    status = "ส่งต่อไปโรงบาลอื่น";
+                    status = "ส่งต่อไปโรงพยาบาลอื่น";
                 break;
         }
     }

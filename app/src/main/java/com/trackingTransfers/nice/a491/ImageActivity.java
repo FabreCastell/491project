@@ -89,6 +89,7 @@ public class ImageActivity extends AppCompatActivity {
         mDataImageRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUploads.clear();
                 for(DataSnapshot post : dataSnapshot.getChildren()){
                     upload upload = post.getValue(upload.class);
                     mUploads.add(upload);
@@ -207,7 +208,7 @@ public class ImageActivity extends AppCompatActivity {
                             String  downloadUrl = uri.toString();
                             Log.d("zzzzzzzzzz", " "+ downloadUrl);
 
-                            upload upload = new upload(" ", downloadUrl);
+                            upload upload = new upload(user, downloadUrl);
 
                             String uploadID = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(id).child("image").push().setValue(upload);

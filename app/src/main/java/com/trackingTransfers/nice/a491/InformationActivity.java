@@ -117,6 +117,7 @@ public class InformationActivity extends AppCompatActivity {
 
     public void changeState(){
         DatabaseReference myRef = database.getReference("List/" + id);
+        Log.d("sssss"," " + status + "    " + transfer);
         if(status.equals("ส่งต่อไปโรงพยาบาลอื่น")) {
             if(transfer.equals("กำลังเคลื่อนย้าย")) {
                 myRef.child("transfer").setValue("ถึงโรงพยาบาลปลายทางแล้ว");

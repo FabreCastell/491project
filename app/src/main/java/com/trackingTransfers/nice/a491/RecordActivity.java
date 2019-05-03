@@ -59,7 +59,6 @@ public class RecordActivity extends AppCompatActivity {
         listview =  findViewById(R.id.list_comment);
 
         final ArrayAdapter<String> adapter = new ArrayAdapter(RecordActivity.this,android.R.layout.simple_dropdown_item_1line,list);
-        adapter.clear();
         listview.setAdapter(adapter);
 
 
@@ -93,6 +92,7 @@ public class RecordActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
                 for(DataSnapshot post : dataSnapshot.getChildren()){
                     String comment = post.getValue(String.class);
                    list.add(comment);
@@ -195,8 +195,7 @@ public class RecordActivity extends AppCompatActivity {
         Log.d("zzzzzz12","id" + id + "con " + convertID(id) );
         myRef.child(formattedDate).setValue(convertID(user) + ": " +commet); //1
 
-        finish();
-        startActivity(getIntent());
+        comment.setText("");
 
     }
 
