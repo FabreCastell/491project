@@ -121,6 +121,7 @@ public class InformationActivity extends AppCompatActivity {
         if(status.equals("ส่งต่อไปโรงพยาบาลอื่น")) {
             if(transfer.equals("กำลังเคลื่อนย้าย")) {
                 myRef.child("transfer").setValue("ถึงโรงพยาบาลปลายทางแล้ว");
+//                myRef.child("status").setValue("รักษาเอง");
             }else{
                 Toast.makeText(InformationActivity.this, "รายการนี้ถึงโรงพยาบาลปลายทางแล้ว",Toast.LENGTH_SHORT).show();
             }

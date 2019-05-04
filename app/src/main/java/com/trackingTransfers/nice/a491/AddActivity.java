@@ -220,7 +220,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             myRef.child("destination").setValue(" ");//5
             nextPage(ListActivity.class, user, id);
         }
-        nextPage(ListActivity.class, user, id);
     }
 
     public boolean onTouchEvent(MotionEvent touchEvent){

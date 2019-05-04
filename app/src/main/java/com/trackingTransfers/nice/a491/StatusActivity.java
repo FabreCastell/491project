@@ -99,7 +99,7 @@ public class StatusActivity extends AppCompatActivity implements AdapterView.OnI
     private void changeStatus(){
         DatabaseReference myRef = database.getReference("List/" + id);
         myRef.child("status").setValue(status);
-        if(status.equals("ส่งต่อไปโรงบาลอื่น")){
+        if(status.equals("ส่งต่อไปโรงพยาบาลอื่น")){
             myRef.child("transfer").setValue("กำลังเคลื่อนย้าย");
             myRef.child("destination").setValue(hospital);
         }else{
