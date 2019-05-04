@@ -215,10 +215,12 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             myRef.child("transfer").setValue("กำลังเคลื่อนย้าย");
             myRef.child("destination").setValue(hospital);//5
             nextPage(SendGps.class, user, id);
+            finish();
         }else{
             myRef.child("transfer").setValue(" ");
             myRef.child("destination").setValue(" ");//5
             nextPage(ListActivity.class, user, id);
+            finish();
         }
     }
 
