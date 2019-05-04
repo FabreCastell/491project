@@ -324,6 +324,7 @@ public class SendGps extends AppCompatActivity {
             Log.d("DBSentstop" , " remove by button");
             changeState();
             nextPage(MainActivity.class,user," ");
+            finish();
 //            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }else if (v.getId() == R.id.stop) {
             isContinue = false;
