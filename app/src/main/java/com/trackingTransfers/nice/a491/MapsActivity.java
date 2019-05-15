@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,14 +37,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final LatLng DefaultLocation = new LatLng(18.795711, 98.952684);
     private Integer ToggleLoop = 0;
     private Integer Count = 0;
-    private double latitude;
-    private double longitude;
+    private double lat = 18.795711;
+    private double lng = 98.952684;
     private String TypeIntent;
     private String user, id;
     private double latdb = 0;
     private double lngdb = 0;
     private double latIntent;
     private double lngIntent;
+    private double startcamera = 0;
     //FireBase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     @Override
@@ -131,17 +134,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         if(TypeIntent.equals("2")){
+            DatabaseReference ref = database.getReference("List/" + id);
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                       // Log.d("zzzzzzzzzzzzz" , "1 " + lat + " " +lng);
+                        lat = dataSnapshot.child("lat").getValue(Double.class);
+                        lng = dataSnapshot.child("lng").getValue(Double.class);
+                      //  Log.d("zzzzzzzzzzzzz" , "2 " + lat + " " +lng);
+                       mMap.clear();
+                       addmarker();
+                    }
 
-            mMap.addMarker(new MarkerOptions().position(new LatLng(latIntent,lngIntent))
-                    .title("Lat : "+latIntent+" Lng : "+lngIntent)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("ggg", "failread realtimedb");
+                }
+            });
+
         }
 
 
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latIntent, lngIntent), 10));
+
 
     }
+    public void addmarker(){
+
+
+        mMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng))
+                .title("Lat : "+lat+" Lng : "+lng)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.a0)));
+        if(startcamera == 0) {
+            startcamera = 1;
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 10));
+        }
+    }
+
 
     private void enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
