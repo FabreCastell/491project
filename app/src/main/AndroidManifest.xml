@@ -37,7 +37,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAok3v2lSle49WtNb445yytE6qD4h3_Hhc" />
+            android:value="AIzaSyClm2fMCcoASlVv3MEA2w3RTLMbKtM2ErY" />
 
         <activity android:name="com.trackingTransfers.nice.a491.LoginActivity">
             <intent-filter>
