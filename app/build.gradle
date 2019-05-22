@@ -7,7 +7,7 @@ android {
         applicationId "com.trackingTransfers.nice.a491"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 15
+        versionCode 16
         versionName "2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
